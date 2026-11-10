@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Login | Facilitas — Professional Facilities Management</title>
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=64&h=64&fit=crop">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== COLOR SYSTEM (Black, White, Copper) ===== */
+    :root {
+      --bg-primary: #FFFFFF;
+      --text-primary: #000000;
+      --card-bg: #FFFFFF;
+      --border-color: #E5E7EB;
+      --copper: #B87333;
+      --copper-dark: #9A5F2A;
+      --muted: #6B7280;
+      --input-bg: #FFFFFF;
+    }
+
+    .dark {
+      --bg-primary: #0A0A0A;
+      --text-primary: #F5F5F5;
+      --card-bg: #141414;
+      --border-color: #2A2A2A;
+      --muted: #9CA3AF;
+      --input-bg: #0F0F0F;
+    }
+
+    /* ===== CRITICAL: NO SCROLL ANYWHERE ===== */
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;            /* no page scroll */
+      overscroll-behavior: none;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 1rem;
+      position: relative;
+    }
+
+    /* ===== BRAND ===== */
+    .logo-icon, .logo-text { color: #B87333 !important; }
+    .logo-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    /* ===== TOP-RIGHT CONTROLS ===== */
+    .top-controls {
+      position: fixed;
+      top: 0.85rem;
+      right: 0.85rem;
+      z-index: 50;
+      display: flex;
+      gap: 0.45rem;
+    }
+    [dir="rtl"] .top-controls {
+      right: auto;
+      left: 0.85rem;
+    }
+
+    .ctrl-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(184, 115, 51, 0.14);
+      border: 1px solid rgba(184, 115, 51, 0.25);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .ctrl-btn:hover { background: rgba(184, 115, 51, 0.28); }
+
+    /* ===== LOGIN CARD (CENTered, tightened, no internal scroll) ===== */
+    .login-shell {
+      width: 100%;
+      max-width: 400px;
+      max-height: calc(100dvh - 2rem);   /* never exceed viewport */
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1.25rem;
+      box-shadow: 0 25px 50px -18px rgba(0, 0, 0, 0.25);
+      padding: 1.6rem 1.6rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;                  /* no inner scroll */
+      position: relative;
+    }
+
+    .login-shell::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #B87333, #D4A373, #B87333);
+    }
+
+    /* ===== FORM ===== */
+    .field-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.68rem 0.9rem;
+      border-radius: 0.7rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--input-bg);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-input::placeholder { color: var(--muted); opacity: 0.8; }
+    .form-input:focus {
+      outline: none;
+      border-color: #B87333;
+      box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.16);
+    }
+
+    .btn-copper {
+      background-color: #B87333;
+      color: #fff;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+    .btn-copper:hover { background-color: #9A5F2A; }
+    .btn-copper:active { transform: scale(0.985); }
+
+    /* ===== SOCIAL BUTTONS ===== */
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      padding: 0.62rem 0.8rem;
+      border-radius: 0.7rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--input-bg);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .social-btn:hover {
+      border-color: rgba(184, 115, 51, 0.55);
+      background-color: rgba(184, 115, 51, 0.06);
+    }
+    .social-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--muted);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    /* ===== RTL ===== */
+    [dir="rtl"] { text-align: right; direction: rtl; }
+
+    /* ===== RESPONSIVE (keeps everything fitting, no scroll) ===== */
+    @media (max-height: 620px) {
+      .login-shell {
+        padding: 1.1rem 1.3rem 1rem;
+        max-width: 380px;
+      }
+      .login-shell h1 { font-size: 1.15rem; }
+      .social-btn { padding: 0.5rem 0.7rem; font-size: 0.74rem; }
+      .form-input { padding: 0.55rem 0.8rem; font-size: 0.8rem; }
+    }
+    @media (max-width: 360px) {
+      .login-shell { padding: 1.2rem 1rem 1rem; }
+    }
+  </style>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { colors: { primary: '#B87333', copper: '#B87333', black: '#000000' } } }
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ===== TOP-RIGHT CONTROLS: RTL + DARK MODE ===== -->
+  <div class="top-controls">
+    <button onclick="toggleDirection()" class="ctrl-btn" aria-label="Toggle text direction">
+      <i data-lucide="arrow-left-right" class="w-3.5 h-3.5"></i>
+      <span id="dirText">LTR</span>
+    </button>
+    <button onclick="toggleTheme()" class="ctrl-btn" aria-label="Toggle dark mode">
+      <i data-lucide="moon" class="w-3.5 h-3.5 dark:hidden"></i>
+      <i data-lucide="sun" class="w-3.5 h-3.5 hidden dark:block text-yellow-400"></i>
+    </button>
+  </div>
+
+  <!-- ===== CENTERED LOGIN CARD ===== -->
+  <main class="login-shell">
+
+    <!-- Logo → index.html -->
+    <a href="index.html" class="logo-brand flex items-center justify-center gap-2 mb-1">
+      <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+      <span class="text-2xl sm:text-3xl font-black tracking-tight">
+        <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+      </span>
+    </a>
+
+    <div class="text-center mb-4">
+      <h1 class="text-lg font-extrabold leading-tight" style="color: var(--text-primary);">Welcome back</h1>
+      <p class="text-xs mt-0.5" style="color: var(--muted);">Sign in to your Facilitas account</p>
+    </div>
+
+    <!-- SOCIAL LOGIN -->
+    <div class="space-y-2 mb-3.5">
+      <!-- Google -->
+      <button type="button" class="social-btn" onclick="socialLogin('Google')" aria-label="Sign in with Google">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <!-- Facebook -->
+      <button type="button" class="social-btn" onclick="socialLogin('Facebook')" aria-label="Sign in with Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.026 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.971h-1.513c-1.49 0-1.955.93-1.955 1.886v2.265h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+        </svg>
+        <span>Continue with Facebook</span>
+      </button>
+
+      <!-- Apple -->
+      <button type="button" class="social-btn" onclick="socialLogin('Apple')" aria-label="Sign in with Apple">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#000000" class="apple-logo-fill" d="M17.05 12.536c-.026-2.62 2.14-3.878 2.236-3.938-1.217-1.78-3.11-2.024-3.786-2.053-1.61-.163-3.14.947-3.955.947-.815 0-2.075-.923-3.41-.898-1.755.026-3.373 1.02-4.277 2.59-1.825 3.16-.466 7.84 1.31 10.41.868 1.257 1.9 2.668 3.26 2.617 1.31-.052 1.805-.847 3.39-.847 1.585 0 2.03.847 3.41.82 1.41-.026 2.3-1.28 3.16-2.54.994-1.46 1.402-2.874 1.428-2.948-.03-.013-2.74-1.05-2.766-4.16zM14.47 4.03c.72-.873 1.205-2.086 1.072-3.294-1.037.042-2.294.69-3.038 1.562-.667.772-1.25 2.006-1.092 3.19 1.156.09 2.34-.588 3.058-1.458z"/>
+        </svg>
+        <span>Continue with Apple</span>
+      </button>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider mb-3.5">or sign in with email</div>
+
+    <!-- EMAIL / PASSWORD FORM -->
+    <form onsubmit="handleLogin(event)" class="space-y-3">
+      <div>
+        <label for="email" class="field-label">Email Address</label>
+        <input id="email" type="email" required class="form-input" placeholder="you@company.com" autocomplete="email">
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-0.5">
+          <label for="password" class="field-label" style="margin-bottom:0;">Password</label>
+          <a href="#" class="text-[0.68rem] font-bold hover:underline" style="color: var(--copper);">Forgot?</a>
+        </div>
+        <input id="password" type="password" required class="form-input" placeholder="Enter your password" autocomplete="current-password">
+      </div>
+
+      <label class="flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="w-3.5 h-3.5 accent-[#B87333] cursor-pointer">
+        <span class="text-xs" style="color: var(--muted);">Keep me signed in</span>
+      </label>
+
+      <button type="submit" class="btn-copper w-full py-2.5 rounded-xl font-bold text-sm shadow-md inline-flex items-center justify-center gap-2">
+        Sign In <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </button>
+    </form>
+
+    <!-- FOOTER LINK -->
+    <p class="text-center text-xs mt-3.5" style="color: var(--muted);">
+      Don't have an account?
+      <a href="register.html" class="font-bold hover:underline" style="color: var(--copper);">Sign up</a>
+    </p>
+
+  </main>
+
+  <script>
+    /* ===== INIT ICONS ===== */
+    lucide.createIcons();
+
+    /* ===== THEME TOGGLE ===== */
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    /* ===== RTL / LTR TOGGLE ===== */
+    function toggleDirection() {
+      const html = document.documentElement;
+      const label = document.getElementById('dirText');
+      if (html.dir === 'rtl') {
+        html.dir = 'ltr';
+        if (label) label.innerText = 'LTR';
+      } else {
+        html.dir = 'rtl';
+        if (label) label.innerText = 'RTL';
+      }
+      setTimeout(() => lucide.createIcons(), 50);
+    }
+
+    /* ===== SOCIAL LOGIN (demo handler) ===== */
+    function socialLogin(provider) {
+      const btn = event.currentTarget;
+      const original = btn.innerHTML;
+      btn.innerHTML = '<span style="font-size:0.78rem;font-weight:700;">Connecting to ' + provider + '…</span>';
+      btn.disabled = true;
+      btn.style.opacity = '0.8';
+      setTimeout(() => {
+        btn.innerHTML = '<span style="font-size:0.78rem;font-weight:700;">✓ Redirecting…</span>';
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          lucide.createIcons();
+          // In a real app: window.location.href = '/auth/' + provider.toLowerCase();
+        }, 900);
+      }, 900);
+    }
+
+    /* ===== EMAIL LOGIN (demo handler) ===== */
+    function handleLogin(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Signing in…';
+      btn.disabled = true;
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i> Success!';
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.disabled = false;
+          form.reset();
+          lucide.createIcons();
+          // In a real app: window.location.href = 'client-dashboard.html';
+        }, 1200);
+      }, 1200);
+    }
+
+    /* ===== LOAD SAVED THEME ===== */
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+
+    /* ===== PREVENT ANY ACCIDENTAL SCROLL ===== */
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      window.scrollTo(0, 0);
+    });
+  </script>
+</body>
+</html>

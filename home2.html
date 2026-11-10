@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Facilitas | Home 2 — Intelligent Facilities Management</title>
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=64&h=64&fit=crop">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== COLOR SYSTEM (Black, White, Copper) ===== */
+    :root {
+      --bg-primary: #FFFFFF;
+      --text-primary: #000000;
+      --card-bg: #FFFFFF;
+      --border-color: #E5E7EB;
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --footer-bg: #FFFFFF;
+      --footer-text: #4B5563;
+      --copper: #B87333;
+      --copper-light: #D4A373;
+      --copper-dark: #8B5A2B;
+      --black: #000000;
+      --white: #FFFFFF;
+    }
+
+    .dark {
+      --bg-primary: #0A0A0A;
+      --text-primary: #F5F5F5;
+      --card-bg: #1A1A1A;
+      --border-color: #2A2A2A;
+      --nav-bg: rgba(10, 10, 10, 0.96);
+      --footer-bg: #050505;
+      --footer-text: #9CA3AF;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* ===== BRAND & LOGO ===== */
+    .logo-icon, .logo-text { color: #B87333 !important; }
+    .logo-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 115, 51, 0.25);
+      transition: background-color 0.3s ease, border-color 0.2s;
+    }
+
+    .dark nav {
+      background-color: var(--nav-bg);
+      border-bottom-color: rgba(184, 115, 51, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .desktop-nav-links { display: none !important; }
+    .desktop-controls-wrapper { display: none !important; }
+
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(184, 115, 51, 0.15);
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .mobile-menu-btn:hover { background: rgba(184, 115, 51, 0.3); }
+
+    @media (min-width: 1280px) {
+      .desktop-nav-links { display: flex !important; }
+      .desktop-controls-wrapper { display: flex !important; }
+      .mobile-menu-btn { display: none !important; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+      .desktop-nav-links { display: none !important; }
+      .desktop-controls-wrapper { display: none !important; }
+      .mobile-menu-btn { display: flex !important; }
+    }
+
+    @media (max-width: 767px) {
+      .desktop-nav-links { display: none !important; }
+      .desktop-controls-wrapper { display: none !important; }
+      .mobile-menu-btn { display: flex !important; }
+      .nav-inner { padding: 0.75rem 1rem; }
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary) !important;
+      white-space: nowrap;
+    }
+
+    .dark .nav-link { color: #F5F5F5 !important; }
+
+    .nav-link:hover {
+      color: #B87333 !important;
+      background-color: transparent !important;
+    }
+
+    .nav-link.active-page {
+      color: #B87333 !important;
+      background-color: transparent !important;
+    }
+
+    .desktop-control-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(184, 115, 51, 0.15);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      color: var(--text-primary);
+      border: none;
+    }
+
+    .dark .desktop-control-btn {
+      color: #F5F5F5;
+      background: rgba(184, 115, 51, 0.2);
+    }
+
+    .desktop-control-btn:hover { background: rgba(184, 115, 51, 0.35); }
+
+    /* ===== TYPOGRAPHY & ACCENTS ===== */
+    h1, h2, h3, h4, .text-copper { color: #B87333 !important; }
+    .bg-copper { background-color: #B87333 !important; }
+    .bg-copper:hover { background-color: #9A5F2A !important; }
+    .border-copper { border-color: #B87333 !important; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: var(--footer-bg) !important;
+      border-top: 1px solid var(--border-color);
+      transition: background-color 0.3s ease;
+    }
+    footer .logo-icon, footer .logo-text { color: #B87333 !important; }
+    footer h4 { color: #B87333 !important; font-weight: 800; letter-spacing: 0.05em; }
+    footer p, footer li, footer span, footer .text-gray-400, footer .text-gray-500 { color: var(--footer-text) !important; }
+    footer a { color: var(--footer-text) !important; transition: color 0.2s ease; }
+    footer a:hover { color: #B87333 !important; }
+    footer .border-t { border-color: var(--border-color) !important; }
+
+    /* ===== CARDS & HOVER ===== */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
+    }
+
+    /* ===== HERO ===== */
+    .hero2-section { position: relative; }
+    .hero2-section h1, .hero2-section p, .hero2-section .inline-flex span { color: white !important; }
+
+    /* ===== RTL SUPPORT ===== */
+    [dir="rtl"] { text-align: right; direction: rtl; }
+    [dir="rtl"] .flex-col { flex-direction: column; }
+    [dir="rtl"] .justify-start { justify-content: flex-end; }
+    [dir="rtl"] .justify-end { justify-content: flex-start; }
+    [dir="rtl"] .text-left { text-align: right; }
+    [dir="rtl"] .text-right { text-align: left; }
+    [dir="rtl"] .ml-auto { margin-left: 0; margin-right: auto; }
+    [dir="rtl"] .mr-auto { margin-right: 0; margin-left: auto; }
+    [dir="rtl"] .contact-item { flex-direction: row-reverse; }
+    [dir="rtl"] .contact-item i { margin-left: 0.75rem; margin-right: 0; }
+
+    /* ===== MOBILE MENU ===== */
+    #mobileMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: auto;
+      width: 85%;
+      max-width: 400px;
+      height: 100vh;
+      background-color: var(--card-bg);
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: 2px 0 20px rgba(0,0,0,0.3);
+    }
+    #mobileMenu.open { transform: translateX(0); }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    body.menu-open { overflow: hidden; }
+
+    .dropdown-content {
+      display: none;
+      background-color: var(--card-bg) !important;
+      border: 1px solid var(--border-color);
+    }
+    .dropdown-content.show { display: block; }
+
+    .mobile-nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-primary) !important;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    [dir="rtl"] .mobile-nav-link { text-align: right; }
+    .mobile-nav-link:hover { color: #B87333 !important; background: transparent !important; }
+    .mobile-nav-link.active-mobile { color: #B87333 !important; background: transparent !important; }
+
+    .mobile-submenu {
+      display: none;
+      flex-direction: column;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(184, 115, 51, 0.4);
+    }
+    [dir="rtl"] .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1rem;
+      border-left: none;
+      border-right: 2px solid rgba(184, 115, 51, 0.4);
+    }
+    .mobile-submenu.open { display: flex; }
+    .mobile-submenu a {
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-primary) !important;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .mobile-submenu a.active-mobile-sub { background-color: #B87333 !important; color: white !important; }
+    .mobile-submenu a:hover { background-color: #B87333 !important; color: white !important; }
+
+    .control-btn {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(184, 115, 51, 0.1);
+      border: 1px solid rgba(184, 115, 51, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+    .control-btn:hover { background: rgba(184, 115, 51, 0.2); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-14px); }
+    }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+
+    /* ===== SECTION BACKGROUNDS ===== */
+    .section-soft { background: linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%); }
+    .dark .section-soft { background: linear-gradient(135deg, #141414 0%, #0A0A0A 100%); }
+    .section-dark { background: linear-gradient(120deg, #0F0F0F 0%, #1A1A1A 100%); }
+    .section-warm { background: #F5F0E8; }
+    .dark .section-warm { background: #1E1A14; }
+
+    .stats-number { font-size: 2.2rem; font-weight: 800; color: #B87333; }
+
+    .rounded-2xl { border-radius: 1rem; }
+
+    /* ===== HERO SPLIT LAYOUT ===== */
+    .hero2-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 7rem;
+      padding-bottom: 5.5rem;
+    }
+
+    .hero2-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero2-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero2-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.3) 100%);
+    }
+
+    /* Floating stat card */
+    .floating-card {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
+      border-radius: 1.25rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      border: 1px solid rgba(184,115,51,0.3);
+    }
+    .dark .floating-card {
+      background: rgba(20,20,20,0.96);
+      border-color: rgba(184,115,51,0.4);
+    }
+
+    /* Progress bar */
+    .progress-track {
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: rgba(184,115,51,0.15);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #B87333, #D4A373);
+    }
+
+    /* Sector tabs */
+    .sector-tab {
+      padding: 0.7rem 1.4rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .sector-tab:hover { border-color: #B87333; color: #B87333; }
+    .sector-tab.active {
+      background: #B87333;
+      border-color: #B87333;
+      color: #FFFFFF;
+    }
+
+    /* Sector panel */
+    .sector-panel {
+      display: none;
+    }
+    .sector-panel.active {
+      display: grid;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    /* Testimonial carousel dots */
+    .carousel-dot {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 9999px;
+      background: rgba(184,115,51,0.3);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .carousel-dot.active {
+      background: #B87333;
+      width: 1.6rem;
+    }
+
+    /* Stat ring */
+    .stat-ring {
+      width: 7rem;
+      height: 7rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 0 auto;
+      background: conic-gradient(#B87333 0deg, #B87333 var(--pct, 270deg), rgba(184,115,51,0.15) var(--pct, 270deg));
+    }
+    .stat-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0.55rem;
+      border-radius: 9999px;
+      background: var(--card-bg);
+    }
+    .stat-ring span {
+      position: relative;
+      z-index: 1;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #B87333;
+    }
+  </style>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { colors: { primary: '#B87333', copper: '#B87333', black: '#000000' } } }
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo-brand flex items-center gap-2 shrink-0">
+        <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+        <span class="text-2xl sm:text-3xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+
+      <div class="desktop-nav-links items-center gap-1 xl:gap-2">
+        <div class="relative">
+          <button onclick="toggleDropdown('homeMenu', event)" class="nav-link active-page">
+            Home <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="homeMenu" class="dropdown-content absolute top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+            <a href="index.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">Home 1</a>
+            <a href="home2.html" class="nav-link active-page block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <div class="relative">
+          <button onclick="toggleDropdown('dashboardMenu', event)" class="nav-link">
+            Dashboard <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="dashboardMenu" class="dropdown-content absolute top-full mt-2 w-52 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+            <a href="admin-dashboard.html" class="flex items-center gap-2 px-4 py-3 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">
+              <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Dashboard
+            </a>
+            <a href="client-dashboard.html" class="flex items-center gap-2 px-4 py-3 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">
+              <i data-lucide="users" class="w-4 h-4"></i> Client Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="desktop-controls-wrapper items-center gap-2 shrink-0">
+        <button onclick="toggleDirection()" class="desktop-control-btn">
+          <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+          <span id="dirTextDesktop">LTR</span>
+        </button>
+        <button onclick="toggleTheme()" class="desktop-control-btn">
+          <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+        </button>
+        <div class="relative">
+          <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn">
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <i data-lucide="chevron-down" class="w-3 h-3"></i>
+          </button>
+          <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
+            <a href="login.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">LOGIN</a>
+            <a href="register.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">SIGNUP</a>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="toggleMobileMenu()" class="mobile-menu-btn p-2 sm:p-2.5 rounded-lg transition shrink-0" style="background: rgba(184, 115, 51, 0.2); color: var(--text-primary);">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE MENU PANEL ===== -->
+  <div id="mobileMenu">
+    <div class="flex justify-between items-center mb-6">
+      <a href="index.html" class="logo-brand flex items-center gap-2">
+        <i data-lucide="building-2" class="w-7 h-7 logo-icon"></i>
+        <span class="text-2xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+      <button onclick="closeMobileMenu()" class="p-2 rounded-full hover:bg-copper/40" style="background: rgba(184, 115, 51, 0.2);">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link active-mobile" id="mobileHomeMainBtn">
+      <span>Home</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </button>
+    <div id="mobileHomeSub" class="mobile-submenu open">
+      <a href="index.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home 1</a>
+      <a href="home2.html" class="block py-3 px-4 text-sm font-medium rounded-lg active-mobile-sub">Home 2</a>
+    </div>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="services.html" class="mobile-nav-link">Services</a>
+
+    <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+    <a href="faq.html" class="mobile-nav-link">FAQ</a>
+    <a href="blog.html" class="mobile-nav-link">Blog</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+
+    <button onclick="toggleMobileSubmenu('mobileDashboardSub')" class="mobile-nav-link">
+      <span>Dashboard</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </button>
+    <div id="mobileDashboardSub" class="mobile-submenu">
+      <a href="admin-dashboard.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Dashboard
+      </a>
+      <a href="client-dashboard.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="users" class="w-4 h-4"></i> Client Dashboard
+      </a>
+    </div>
+
+    <div class="h-px bg-copper/30 my-3"></div>
+
+    <div class="control-btn" onclick="toggleMobileSubmenu('mobileAuthSub')">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="user-circle" class="w-4 h-4"></i> Account
+      </span>
+      <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </div>
+    <div id="mobileAuthSub" class="mobile-submenu">
+      <a href="login.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="log-in" class="w-4 h-4"></i> Login
+      </a>
+      <a href="register.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="user-plus" class="w-4 h-4"></i> Sign Up
+      </a>
+    </div>
+
+    <div class="control-btn" onclick="toggleDirectionMobile()">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="arrow-left-right" class="w-4 h-4"></i> RTL Mode
+      </span>
+      <span id="mobileDirText" class="text-xs font-bold bg-copper/20 px-2 py-1 rounded">LTR</span>
+    </div>
+
+    <div class="control-btn" onclick="toggleTheme()">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+        <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+        Dark Mode
+      </span>
+      <span class="text-xs bg-copper/20 px-2 py-1 rounded">🌓</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 1 — HERO 2 (SPLIT LAYOUT WITH FLOATING DASHBOARD CARD)
+       ============================================================ -->
+  <section class="hero2-section w-full pt-28 pb-20 sm:pt-32 sm:pb-24">
+    <div class="hero2-bg">
+      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1920&h=1080&fit=crop&q=80" alt="Modern intelligent facility workspace">
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div class="grid lg:grid-cols-12 gap-10 items-center py-6 lg:py-8">
+
+        <!-- Left: Copy -->
+        <div class="lg:col-span-7 fade-in-up">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B87333]/40 backdrop-blur-sm border border-[#B87333]/60 text-white mb-6">
+            <i data-lucide="brain-circuit" class="w-4 h-4"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Intelligent FM · Powered by Data</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] drop-shadow-lg">
+            Your Buildings.<br>
+            <span class="text-[#B87333]">Smarter Than Ever.</span>
+          </h1>
+
+          <p class="text-white/90 text-base md:text-lg max-w-xl mt-6 drop-shadow">
+            IoT sensors, live dashboards, and predictive maintenance — we run your facilities with the precision of a control room and the care of a dedicated team.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mt-8">
+            <a href="services.html" class="px-7 py-4 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all inline-flex items-center justify-center gap-2 group">
+              Explore Smart FM
+              <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="contact.html" class="px-7 py-4 border-2 border-white/60 text-white rounded-xl font-bold hover:bg-white/15 transition-all backdrop-blur-sm inline-flex items-center justify-center gap-2">
+              <i data-lucide="calendar-check" class="w-5 h-5"></i> Book a Demo
+            </a>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-6 mt-10 text-white/75 text-sm">
+            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> ISO 41001 Certified</div>
+            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> 24/7 Response</div>
+            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> 500+ Sites</div>
+          </div>
+        </div>
+
+        <!-- Right: Floating live dashboard card -->
+        <div class="lg:col-span-5 fade-in-up">
+          <div class="floating-card p-6 sm:p-7 animate-float">
+
+            <div class="flex items-center justify-between mb-5">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-primary);">Live Portfolio Snapshot</span>
+              </div>
+              <i data-lucide="activity" class="w-4 h-4 text-[#B87333]"></i>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-6">
+              <div class="text-center p-3 rounded-xl" style="background: rgba(184,115,51,0.08);">
+                <div class="text-xl font-black text-[#B87333]">98.7%</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mt-0.5">SLA</div>
+              </div>
+              <div class="text-center p-3 rounded-xl" style="background: rgba(184,115,51,0.08);">
+                <div class="text-xl font-black text-[#B87333]">1.4h</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mt-0.5">Response</div>
+              </div>
+              <div class="text-center p-3 rounded-xl" style="background: rgba(184,115,51,0.08);">
+                <div class="text-xl font-black text-[#B87333]">22%</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mt-0.5">Energy ↓</div>
+              </div>
+            </div>
+
+            <div class="space-y-4 mb-6">
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1.5" style="color: var(--text-primary);">
+                  <span>PPM Completion</span><span class="text-[#B87333]">99.2%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" style="width: 99.2%;"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1.5" style="color: var(--text-primary);">
+                  <span>Compliance Rate</span><span class="text-[#B87333]">100%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" style="width: 100%;"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1.5" style="color: var(--text-primary);">
+                  <span>Client Satisfaction</span><span class="text-[#B87333]">4.8/5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" style="width: 96%;"></div></div>
+              </div>
+            </div>
+
+            <a href="client-dashboard.html" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#B87333] text-white text-sm font-bold hover:bg-[#9A5F2A] transition">
+              <i data-lucide="monitor" class="w-4 h-4"></i> View Client Dashboard
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — SECTOR TABS (Interactive panels)
+       ============================================================ -->
+  <section class="py-24 section-soft">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Built for Your Sector</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3" style="color: var(--text-primary);">
+          Specialised <span class="text-[#B87333]">FM Expertise</span>
+        </h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2 max-w-2xl mx-auto">No two buildings are the same. Choose your sector to see how we tailor our teams, schedules, and compliance approach.</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button class="sector-tab active" data-sector="commercial" onclick="switchSector('commercial', this)">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5 inline mr-1"></i> Commercial
+        </button>
+        <button class="sector-tab" data-sector="healthcare" onclick="switchSector('healthcare', this)">
+          <i data-lucide="heart-pulse" class="w-3.5 h-3.5 inline mr-1"></i> Healthcare
+        </button>
+        <button class="sector-tab" data-sector="industrial" onclick="switchSector('industrial', this)">
+          <i data-lucide="factory" class="w-3.5 h-3.5 inline mr-1"></i> Industrial
+        </button>
+        <button class="sector-tab" data-sector="education" onclick="switchSector('education', this)">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5 inline mr-1"></i> Education
+        </button>
+      </div>
+
+      <!-- Panel: Commercial -->
+      <div class="sector-panel active grid lg:grid-cols-2 gap-10 items-center" data-sector-panel="commercial">
+        <div class="rounded-3xl overflow-hidden shadow-2xl border border-[#B87333]/20">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&h=650&fit=crop&q=80" class="w-full h-[340px] lg:h-[420px] object-cover" alt="Commercial office buildings">
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Commercial Real Estate</span>
+          <h3 class="text-2xl md:text-3xl font-extrabold mt-3 mb-4" style="color: var(--text-primary);">Tenant-First Operations</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+            Multi-tenant towers and business parks demand a seamless service experience. We align cleaning windows, maintenance access, and security around tenant operations — with a front-of-house team that knows every name.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Out-of-hours PPM to avoid tenant disruption</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Concierge and front-of-house services</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Tenant satisfaction reporting in the dashboard</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Panel: Healthcare -->
+      <div class="sector-panel grid lg:grid-cols-2 gap-10 items-center" data-sector-panel="healthcare">
+        <div class="rounded-3xl overflow-hidden shadow-2xl border border-[#B87333]/20">
+          <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=900&h=650&fit=crop&q=80" class="w-full h-[340px] lg:h-[420px] object-cover" alt="Healthcare facility corridor">
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Healthcare Estates</span>
+          <h3 class="text-2xl md:text-3xl font-extrabold mt-3 mb-4" style="color: var(--text-primary);">Infection-Control Led</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+            In clinical environments, every process is a patient-safety process. Our healthcare teams are trained in infection prevention, HTM compliance, and cleanroom protocols — with audit trails that stand up to inspection.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> HTM 04-01 / 06-01 compliance support</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Enhanced cleaning and infection-control audits</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Medical gas and critical-system PPM</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Panel: Industrial -->
+      <div class="sector-panel grid lg:grid-cols-2 gap-10 items-center" data-sector-panel="industrial">
+        <div class="rounded-3xl overflow-hidden shadow-2xl border border-[#B87333]/20">
+          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&h=650&fit=crop&q=80" class="w-full h-[340px] lg:h-[420px] object-cover" alt="Industrial plant facility">
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Industrial &amp; Logistics</span>
+          <h3 class="text-2xl md:text-3xl font-extrabold mt-3 mb-4" style="color: var(--text-primary);">Uptime Is Everything</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+            Production lines and distribution centres can't afford downtime. We combine predictive maintenance, condition monitoring, and rapid reactive cover to keep your assets running at maximum availability.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Predictive and condition-based maintenance</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Critical spares management</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> 24/7 engineering cover</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Panel: Education -->
+      <div class="sector-panel grid lg:grid-cols-2 gap-10 items-center" data-sector-panel="education">
+        <div class="rounded-3xl overflow-hidden shadow-2xl border border-[#B87333]/20">
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=900&h=650&fit=crop&q=80" class="w-full h-[340px] lg:h-[420px] object-cover" alt="University campus building">
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Education Estates</span>
+          <h3 class="text-2xl md:text-3xl font-extrabold mt-3 mb-4" style="color: var(--text-primary);">Safe, Clean Learning Spaces</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+            Schools, colleges, and universities need FM that works around term calendars and safeguarding requirements. We deliver deep cleans between terms, reactive cover during exams, and compliant water and fire safety all year.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Term-time and holiday deep-clean programmes</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> DBS-checked staff and safeguarding compliance</li>
+            <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333] mt-0.5"></i> Legionella and fire-safety management</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — PERFORMANCE METRICS (Rings + bars)
+       ============================================================ -->
+  <section class="py-24" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Measured, Not Promised</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3" style="color: var(--text-primary);">
+          Performance You Can <span class="text-[#B87333]">Audit</span>
+        </h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2 max-w-2xl mx-auto">Every metric below is pulled live from our client dashboards — averaged across all managed sites.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl text-center card-hover">
+          <div class="stat-ring" style="--pct: 355deg;">
+            <span>98.7%</span>
+          </div>
+          <h3 class="text-base font-bold mt-5 mb-1" style="color: var(--text-primary);">SLA Compliance</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Across 500+ live contracts</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl text-center card-hover">
+          <div class="stat-ring" style="--pct: 351deg;">
+            <span>97.5%</span>
+          </div>
+          <h3 class="text-base font-bold mt-5 mb-1" style="color: var(--text-primary);">First-Time Fix</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Reactive jobs resolved on first visit</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl text-center card-hover">
+          <div class="stat-ring" style="--pct: 340deg;">
+            <span>94.4%</span>
+          </div>
+          <h3 class="text-base font-bold mt-5 mb-1" style="color: var(--text-primary);">PPM On-Time</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Planned maintenance completed in window</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl text-center card-hover">
+          <div class="stat-ring" style="--pct: 360deg;">
+            <span>100%</span>
+          </div>
+          <h3 class="text-base font-bold mt-5 mb-1" style="color: var(--text-primary);">Compliance</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Zero statutory breaches in 2025</p>
+        </div>
+
+      </div>
+
+      <!-- Horizontal bars -->
+      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-10 max-w-4xl mx-auto">
+        <h3 class="text-xl font-bold mb-8 text-center" style="color: var(--text-primary);">Energy Reduction by Service Line</h3>
+
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between text-sm font-semibold mb-2" style="color: var(--text-primary);">
+              <span>HVAC Optimization</span><span class="text-[#B87333]">28% saved</span>
+            </div>
+            <div class="progress-track h-3"><div class="progress-fill" style="width: 92%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm font-semibold mb-2" style="color: var(--text-primary);">
+              <span>LED Retrofit</span><span class="text-[#B87333]">35% saved</span>
+            </div>
+            <div class="progress-track h-3"><div class="progress-fill" style="width: 100%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm font-semibold mb-2" style="color: var(--text-primary);">
+              <span>BMS Scheduling</span><span class="text-[#B87333]">18% saved</span>
+            </div>
+            <div class="progress-track h-3"><div class="progress-fill" style="width: 72%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm font-semibold mb-2" style="color: var(--text-primary);">
+              <span>Water Efficiency</span><span class="text-[#B87333]">12% saved</span>
+            </div>
+            <div class="progress-track h-3"><div class="progress-fill" style="width: 55%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — COMPARISON: IN-HOUSE VS FACILITAS
+       ============================================================ -->
+  <section class="py-24 section-warm">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">The Facilitas Difference</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3" style="color: var(--text-primary);">
+          Why Integrated <span class="text-[#B87333]">Beats Fragmented</span>
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl mx-auto">A side-by-side look at managing multiple vendors versus a single integrated FM partner.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+
+        <!-- In-house / multi-vendor -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <i data-lucide="x-circle" class="w-6 h-6 text-gray-400"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold" style="color: var(--text-primary);">Multiple Vendors</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">The traditional model</p>
+            </div>
+          </div>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400"><i data-lucide="minus-circle" class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0"></i> 6–12 separate contracts to manage</li>
+            <li class="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400"><i data-lucide="minus-circle" class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0"></i> Finger-pointing between suppliers</li>
+            <li class="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400"><i data-lucide="minus-circle" class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0"></i> No single view of compliance</li>
+            <li class="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400"><i data-lucide="minus-circle" class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0"></i> Slow escalation and duplication</li>
+            <li class="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400"><i data-lucide="minus-circle" class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0"></i> Inconsistent service standards</li>
+          </ul>
+        </div>
+
+        <!-- Facilitas -->
+        <div class="bg-[#B87333] rounded-2xl shadow-2xl p-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
+          <div class="flex items-center gap-3 mb-6 relative z-10">
+            <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+              <i data-lucide="check-circle-2" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold !text-white">Facilitas Integrated FM</h3>
+              <p class="text-xs text-white/70">One accountable partner</p>
+            </div>
+          </div>
+          <ul class="space-y-4 relative z-10">
+            <li class="flex items-start gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-white mt-0.5 flex-shrink-0"></i> One contract, one invoice, one lead</li>
+            <li class="flex items-start gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-white mt-0.5 flex-shrink-0"></i> Single SLA with penalties and bonuses</li>
+            <li class="flex items-start gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-white mt-0.5 flex-shrink-0"></i> Live compliance and performance dashboard</li>
+            <li class="flex items-start gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-white mt-0.5 flex-shrink-0"></i> Direct escalation to a named account lead</li>
+            <li class="flex items-start gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-white mt-0.5 flex-shrink-0"></i> Consistent standards across every service</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — TESTIMONIAL CAROUSEL (JS rotator)
+       ============================================================ -->
+  <section class="py-24" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 max-w-[1000px]">
+
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Client Voices</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3" style="color: var(--text-primary);">
+          Trusted by <span class="text-[#B87333]">Facility Leaders</span>
+        </h2>
+      </div>
+
+      <!-- Carousel -->
+      <div class="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 sm:p-12 border border-[#B87333]/20">
+
+        <i data-lucide="quote" class="w-10 h-10 text-[#B87333] mb-6 opacity-60"></i>
+
+        <!-- Slides -->
+        <div id="testimonialSlides">
+
+          <div class="testimonial-slide" data-slide="0">
+            <p class="text-lg sm:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic mb-8">
+              "Facilitas replaced four vendors with one team and gave us a dashboard we actually use. Our SLA meetings went from two hours of arguing to twenty minutes of reviewing data."
+            </p>
+            <div class="flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&q=80" class="w-14 h-14 rounded-full object-cover border-2 border-[#B87333]" alt="Sarah M.">
+              <div>
+                <p class="font-bold" style="color: var(--text-primary);">Sarah Mitchell</p>
+                <p class="text-sm text-[#B87333]">Facilities Director, Meridian Properties</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide hidden" data-slide="1">
+            <p class="text-lg sm:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic mb-8">
+              "The predictive maintenance programme caught a chiller fault three weeks before it would have failed. That single intervention paid for our entire annual contract."
+            </p>
+            <div class="flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&q=80" class="w-14 h-14 rounded-full object-cover border-2 border-[#B87333]" alt="James R.">
+              <div>
+                <p class="font-bold" style="color: var(--text-primary);">James Rivera</p>
+                <p class="text-sm text-[#B87333]">Operations Manager, Northgate Logistics</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide hidden" data-slide="2">
+            <p class="text-lg sm:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic mb-8">
+              "In healthcare, compliance is non-negotiable. Facilitas understood that from day one — their audit trails and infection-control training passed our CQC inspection without a single finding."
+            </p>
+            <div class="flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&q=80" class="w-14 h-14 rounded-full object-cover border-2 border-[#B87333]" alt="Priya K.">
+              <div>
+                <p class="font-bold" style="color: var(--text-primary);">Priya Kapoor</p>
+                <p class="text-sm text-[#B87333]">Estates Manager, St. Aldate's Hospital</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center justify-between mt-8">
+          <div class="flex gap-2" id="carouselDots">
+            <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+            <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+            <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="prevSlide()" class="w-11 h-11 rounded-full border border-[#B87333]/40 flex items-center justify-center text-[#B87333] hover:bg-[#B87333] hover:text-white transition" aria-label="Previous testimonial">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <button onclick="nextSlide()" class="w-11 h-11 rounded-full border border-[#B87333]/40 flex items-center justify-center text-[#B87333] hover:bg-[#B87333] hover:text-white transition" aria-label="Next testimonial">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — FAQ-STYLE CTA + NEWSLETTER
+       ============================================================ -->
+  <section class="py-24 section-dark relative overflow-hidden">
+    <div class="container mx-auto px-4 max-w-[1300px] relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Ready When You Are</span>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-5">
+            Let's Build Your<br>
+            <span class="text-[#B87333]">FM Roadmap.</span>
+          </h2>
+          <p class="text-white/75 text-lg leading-relaxed mb-8">
+            A 20-minute scoping call is all it takes to understand your current setup and outline a smarter, integrated model. No pressure, no obligation — just clear advice from FM specialists.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <i data-lucide="phone-call" class="w-5 h-5 text-[#B87333] flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-semibold text-sm">Call us directly</p>
+                <a href="tel:+18006428733" class="text-[#B87333] text-sm hover:underline">+1 (800) 642-8733</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <i data-lucide="mail" class="w-5 h-5 text-[#B87333] flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-semibold text-sm">Email our team</p>
+                <a href="mailto:hello@facilitas.com" class="text-[#B87333] text-sm hover:underline">hello@facilitas.com</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all">
+            Book Your Scoping Call <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </a>
+        </div>
+
+        <!-- Newsletter panel -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 sm:p-10 border border-[#B87333]/40">
+          <i data-lucide="newspaper" class="w-12 h-12 text-[#B87333] mb-5"></i>
+          <h3 class="text-2xl font-bold text-white mb-3">The FM Briefing</h3>
+          <p class="text-white/70 text-sm leading-relaxed mb-6">
+            Monthly insights on smart buildings, compliance changes, and energy savings — straight from our operations team.
+          </p>
+
+          <form onsubmit="handleNewsletterSubmit(event)">
+            <input type="email" required placeholder="Your work email" class="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/25 text-white placeholder-white/50 focus:outline-none focus:border-[#B87333] focus:ring-2 focus:ring-[#B87333]/30 transition mb-3" aria-label="Email address">
+            <button type="submit" class="w-full py-3.5 bg-[#B87333] text-white rounded-xl font-bold hover:bg-[#9A5F2A] transition inline-flex items-center justify-center gap-2">
+              Subscribe <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+          <p class="text-xs text-white/50 mt-4">No spam. Unsubscribe anytime.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="pt-16 pb-8">
+    <div class="container mx-auto px-4 md:px-8 max-w-[1300px]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="space-y-6">
+          <a href="index.html" class="logo-brand flex items-center gap-2">
+            <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+            <span class="text-2xl sm:text-3xl font-black tracking-tight">
+              <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+            </span>
+          </a>
+          <p class="text-sm leading-relaxed">Integrated facilities management for commercial, healthcare, and industrial portfolios. Hard FM, soft FM, and specialist services delivered with precision.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Home</a></li>
+            <li><a href="about.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">About Us</a></li>
+            <li><a href="services.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Services</a></li>
+            <li><a href="gallery.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Gallery</a></li>
+            <li><a href="contact.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Resources</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">FM Insights</a></li>
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">Service Catalogue</a></li>
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">Compliance Guide</a></li>
+            <li><a href="blog.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Contact</h4>
+          <ul class="space-y-4">
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="phone" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">+1 (800) 642-8733</span></li>
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="mail" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">hello@facilitas.com</span></li>
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="map-pin" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">1200 Business Park, Suite 500, Chicago, IL</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs font-medium">© 2026 Facilitas — Professional Facilities Management. All Rights Reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Privacy Policy</a>
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Terms of Service</a>
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    /* ===== NAV / THEME / RTL / MOBILE ===== */
+    function toggleDropdown(menuId, e) {
+      if (e) e.stopPropagation();
+      document.querySelectorAll('.dropdown-content').forEach(d => {
+        if (d.id !== menuId) d.classList.remove('show');
+      });
+      const m = document.getElementById(menuId);
+      if (m) m.classList.toggle('show');
+    }
+
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show'));
+    });
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      mobileMenu.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open', mobileMenu.classList.contains('open'));
+    }
+
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      mobileMenu.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    }
+
+    function toggleMobileSubmenu(id) {
+      const sub = document.getElementById(id);
+      if (!sub) return;
+      const parentBtn = sub.previousElementSibling;
+      const icon = parentBtn?.querySelector('i[data-lucide="chevron-down"]');
+      sub.classList.toggle('open');
+      if (icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    function toggleDirection() {
+      const html = document.documentElement;
+      const dirTextDesktop = document.getElementById('dirTextDesktop');
+      const mobileDirText = document.getElementById('mobileDirText');
+      if (html.dir === 'rtl') {
+        html.dir = 'ltr';
+        if (dirTextDesktop) dirTextDesktop.innerText = 'LTR';
+        if (mobileDirText) mobileDirText.innerText = 'LTR';
+      } else {
+        html.dir = 'rtl';
+        if (dirTextDesktop) dirTextDesktop.innerText = 'RTL';
+        if (mobileDirText) mobileDirText.innerText = 'RTL';
+      }
+      setTimeout(() => { lucide.createIcons(); }, 50);
+    }
+
+    function toggleDirectionMobile() { toggleDirection(); }
+
+    /* ===== SECTOR TABS ===== */
+    function switchSector(sector, btn) {
+      document.querySelectorAll('.sector-tab').forEach(t => t.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      document.querySelectorAll('.sector-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.sectorPanel === sector);
+      });
+      setTimeout(() => lucide.createIcons(), 20);
+    }
+
+    /* ===== TESTIMONIAL CAROUSEL ===== */
+    let currentSlide = 0;
+    const totalSlides = 3;
+
+    function showSlide(index) {
+      document.querySelectorAll('.testimonial-slide').forEach((s, i) => {
+        s.classList.toggle('hidden', i !== index);
+      });
+      document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+      currentSlide = index;
+    }
+
+    function goToSlide(i) { showSlide(i); }
+    function nextSlide() { showSlide((currentSlide + 1) % totalSlides); }
+    function prevSlide() { showSlide((currentSlide - 1 + totalSlides) % totalSlides); }
+
+    // Auto-advance
+    let carouselTimer = setInterval(() => { nextSlide(); }, 7000);
+
+    // Pause on hover
+    const carouselEl = document.querySelector('#testimonialSlides');
+    if (carouselEl) {
+      carouselEl.addEventListener('mouseenter', () => clearInterval(carouselTimer));
+      carouselEl.addEventListener('mouseleave', () => {
+        clearInterval(carouselTimer);
+        carouselTimer = setInterval(() => { nextSlide(); }, 7000);
+      });
+    }
+
+    /* ===== NEWSLETTER ===== */
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i> Subscribed!';
+      btn.classList.add('opacity-90');
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('opacity-90');
+        form.reset();
+        lucide.createIcons();
+      }, 3000);
+    }
+
+    /* ===== INIT ===== */
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      showSlide(0);
+
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+
+      // Highlight active nav for Home2
+      const currentPage = window.location.pathname.split("/").pop();
+      document.querySelectorAll(".nav-link").forEach(link => {
+        const href = link.getAttribute("href");
+        if (href === currentPage || (currentPage === "" && href === "index.html")) {
+          link.classList.add("active-page");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

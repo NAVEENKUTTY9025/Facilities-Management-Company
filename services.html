@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Services | Facilitas — Professional Facilities Management</title>
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=64&h=64&fit=crop">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== COLOR SYSTEM (Black, White, Copper) ===== */
+    :root {
+      --bg-primary: #FFFFFF;
+      --text-primary: #000000;
+      --card-bg: #FFFFFF;
+      --border-color: #E5E7EB;
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --footer-bg: #FFFFFF;
+      --footer-text: #4B5563;
+      --copper: #B87333;
+      --copper-light: #D4A373;
+      --copper-dark: #8B5A2B;
+      --black: #000000;
+      --white: #FFFFFF;
+    }
+
+    .dark {
+      --bg-primary: #0A0A0A;
+      --text-primary: #F5F5F5;
+      --card-bg: #1A1A1A;
+      --border-color: #2A2A2A;
+      --nav-bg: rgba(10, 10, 10, 0.96);
+      --footer-bg: #050505;
+      --footer-text: #9CA3AF;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* ===== BRAND & LOGO ===== */
+    .logo-icon, .logo-text { color: #B87333 !important; }
+    .logo-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 115, 51, 0.25);
+      transition: background-color 0.3s ease, border-color 0.2s;
+    }
+
+    .dark nav {
+      background-color: var(--nav-bg);
+      border-bottom-color: rgba(184, 115, 51, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .desktop-nav-links { display: none !important; }
+    .desktop-controls-wrapper { display: none !important; }
+
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(184, 115, 51, 0.15);
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .mobile-menu-btn:hover { background: rgba(184, 115, 51, 0.3); }
+
+    @media (min-width: 1280px) {
+      .desktop-nav-links { display: flex !important; }
+      .desktop-controls-wrapper { display: flex !important; }
+      .mobile-menu-btn { display: none !important; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+      .desktop-nav-links { display: none !important; }
+      .desktop-controls-wrapper { display: none !important; }
+      .mobile-menu-btn { display: flex !important; }
+    }
+
+    @media (max-width: 767px) {
+      .desktop-nav-links { display: none !important; }
+      .desktop-controls-wrapper { display: none !important; }
+      .mobile-menu-btn { display: flex !important; }
+      .nav-inner { padding: 0.75rem 1rem; }
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary) !important;
+      white-space: nowrap;
+    }
+
+    .dark .nav-link { color: #F5F5F5 !important; }
+
+    .nav-link:hover {
+      color: #B87333 !important;
+      background-color: transparent !important;
+    }
+
+    .nav-link.active-page {
+      color: #B87333 !important;
+      background-color: transparent !important;
+    }
+
+    .desktop-control-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(184, 115, 51, 0.15);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      color: var(--text-primary);
+      border: none;
+    }
+
+    .dark .desktop-control-btn {
+      color: #F5F5F5;
+      background: rgba(184, 115, 51, 0.2);
+    }
+
+    .desktop-control-btn:hover { background: rgba(184, 115, 51, 0.35); }
+
+    /* ===== TYPOGRAPHY & ACCENTS ===== */
+    h1, h2, h3, h4, .text-copper { color: #B87333 !important; }
+    .bg-copper { background-color: #B87333 !important; }
+    .bg-copper:hover { background-color: #9A5F2A !important; }
+    .border-copper { border-color: #B87333 !important; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: var(--footer-bg) !important;
+      border-top: 1px solid var(--border-color);
+      transition: background-color 0.3s ease;
+    }
+    footer .logo-icon, footer .logo-text { color: #B87333 !important; }
+    footer h4 { color: #B87333 !important; font-weight: 800; letter-spacing: 0.05em; }
+    footer p, footer li, footer span, footer .text-gray-400, footer .text-gray-500 { color: var(--footer-text) !important; }
+    footer a { color: var(--footer-text) !important; transition: color 0.2s ease; }
+    footer a:hover { color: #B87333 !important; }
+    footer .border-t { border-color: var(--border-color) !important; }
+
+    /* ===== CARDS & HOVER ===== */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
+    }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      position: relative;
+      padding-top: 7rem;
+      padding-bottom: 5.5rem;
+    }
+    .page-hero h1, .page-hero p, .page-hero .inline-flex span { color: white !important; }
+
+    /* ===== RTL SUPPORT ===== */
+    [dir="rtl"] { text-align: right; direction: rtl; }
+    [dir="rtl"] .flex-col { flex-direction: column; }
+    [dir="rtl"] .justify-start { justify-content: flex-end; }
+    [dir="rtl"] .justify-end { justify-content: flex-start; }
+    [dir="rtl"] .text-left { text-align: right; }
+    [dir="rtl"] .text-right { text-align: left; }
+    [dir="rtl"] .ml-auto { margin-left: 0; margin-right: auto; }
+    [dir="rtl"] .mr-auto { margin-right: 0; margin-left: auto; }
+    [dir="rtl"] .contact-item { flex-direction: row-reverse; }
+    [dir="rtl"] .contact-item i { margin-left: 0.75rem; margin-right: 0; }
+
+    /* ===== MOBILE MENU ===== */
+    #mobileMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: auto;
+      width: 85%;
+      max-width: 400px;
+      height: 100vh;
+      background-color: var(--card-bg);
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: 2px 0 20px rgba(0,0,0,0.3);
+    }
+    #mobileMenu.open { transform: translateX(0); }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    body.menu-open { overflow: hidden; }
+
+    .dropdown-content {
+      display: none;
+      background-color: var(--card-bg) !important;
+      border: 1px solid var(--border-color);
+    }
+    .dropdown-content.show { display: block; }
+
+    .mobile-nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-primary) !important;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    [dir="rtl"] .mobile-nav-link { text-align: right; }
+    .mobile-nav-link:hover { color: #B87333 !important; background: transparent !important; }
+    .mobile-nav-link.active-mobile { color: #B87333 !important; background: transparent !important; }
+
+    .mobile-submenu {
+      display: none;
+      flex-direction: column;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(184, 115, 51, 0.4);
+    }
+    [dir="rtl"] .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1rem;
+      border-left: none;
+      border-right: 2px solid rgba(184, 115, 51, 0.4);
+    }
+    .mobile-submenu.open { display: flex; }
+    .mobile-submenu a {
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-primary) !important;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .mobile-submenu a.active-mobile-sub { background-color: #B87333 !important; color: white !important; }
+    .mobile-submenu a:hover { background-color: #B87333 !important; color: white !important; }
+
+    .control-btn {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(184, 115, 51, 0.1);
+      border: 1px solid rgba(184, 115, 51, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+    .control-btn:hover { background: rgba(184, 115, 51, 0.2); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+
+    /* ===== SECTION BACKGROUNDS ===== */
+    .section-soft { background: linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%); }
+    .dark .section-soft { background: linear-gradient(135deg, #141414 0%, #0A0A0A 100%); }
+    .section-dark { background: linear-gradient(120deg, #0F0F0F 0%, #1A1A1A 100%); }
+    .section-warm { background: #F5F0E8; }
+    .dark .section-warm { background: #1E1A14; }
+
+    .stats-number { font-size: 2.2rem; font-weight: 800; color: #B87333; }
+
+    .rounded-2xl { border-radius: 1rem; }
+
+    /* Service card icon bubble */
+    .service-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(184, 115, 51, 0.1);
+      flex-shrink: 0;
+    }
+
+    /* Process step */
+    .process-step {
+      position: relative;
+    }
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: calc(50% + 2.5rem);
+      width: calc(100% - 5rem);
+      height: 2px;
+      background: rgba(184, 115, 51, 0.3);
+    }
+    .process-step:last-child::after { display: none; }
+    @media (max-width: 1023px) {
+      .process-step::after { display: none; }
+    }
+
+    /* Pricing / package highlight */
+    .package-card.popular {
+      border: 2px solid #B87333;
+      position: relative;
+    }
+    .package-badge {
+      position: absolute;
+      top: -0.85rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #B87333;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    [dir="rtl"] .package-badge { left: auto; right: 50%; transform: translateX(50%); }
+
+    /* Checklist item */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      color: #4B5563;
+      line-height: 1.5;
+    }
+    .dark .check-item { color: #9CA3AF; }
+    .check-item i { flex-shrink: 0; margin-top: 0.15rem; }
+  </style>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { colors: { primary: '#B87333', copper: '#B87333', black: '#000000' } } }
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo-brand flex items-center gap-2 shrink-0">
+        <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+        <span class="text-2xl sm:text-3xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+
+      <div class="desktop-nav-links items-center gap-1 xl:gap-2">
+        <div class="relative">
+          <button onclick="toggleDropdown('homeMenu', event)" class="nav-link">
+            Home <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="homeMenu" class="dropdown-content absolute top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+            <a href="index.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">Home 1</a>
+            <a href="home2.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link active-page">Services</a>
+
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <div class="relative">
+          <button onclick="toggleDropdown('dashboardMenu', event)" class="nav-link">
+            Dashboard <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="dashboardMenu" class="dropdown-content absolute top-full mt-2 w-52 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+            <a href="admin-dashboard.html" class="flex items-center gap-2 px-4 py-3 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">
+              <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Dashboard
+            </a>
+            <a href="client-dashboard.html" class="flex items-center gap-2 px-4 py-3 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">
+              <i data-lucide="users" class="w-4 h-4"></i> Client Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="desktop-controls-wrapper items-center gap-2 shrink-0">
+        <button onclick="toggleDirection()" class="desktop-control-btn">
+          <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+          <span id="dirTextDesktop">LTR</span>
+        </button>
+        <button onclick="toggleTheme()" class="desktop-control-btn">
+          <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+        </button>
+        <div class="relative">
+          <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn">
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <i data-lucide="chevron-down" class="w-3 h-3"></i>
+          </button>
+          <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
+            <a href="login.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">LOGIN</a>
+            <a href="register.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">SIGNUP</a>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="toggleMobileMenu()" class="mobile-menu-btn p-2 sm:p-2.5 rounded-lg transition shrink-0" style="background: rgba(184, 115, 51, 0.2); color: var(--text-primary);">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE MENU PANEL ===== -->
+  <div id="mobileMenu">
+    <div class="flex justify-between items-center mb-6">
+      <a href="index.html" class="logo-brand flex items-center gap-2">
+        <i data-lucide="building-2" class="w-7 h-7 logo-icon"></i>
+        <span class="text-2xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+      <button onclick="closeMobileMenu()" class="p-2 rounded-full hover:bg-copper/40" style="background: rgba(184, 115, 51, 0.2);">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link" id="mobileHomeMainBtn">
+      <span>Home</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </button>
+    <div id="mobileHomeSub" class="mobile-submenu">
+      <a href="index.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home 1</a>
+      <a href="home2.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home 2</a>
+    </div>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="services.html" class="mobile-nav-link active-mobile">Services</a>
+
+    <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+    <a href="faq.html" class="mobile-nav-link">FAQ</a>
+    <a href="blog.html" class="mobile-nav-link">Blog</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+
+    <button onclick="toggleMobileSubmenu('mobileDashboardSub')" class="mobile-nav-link">
+      <span>Dashboard</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </button>
+    <div id="mobileDashboardSub" class="mobile-submenu">
+      <a href="admin-dashboard.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Dashboard
+      </a>
+      <a href="client-dashboard.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="users" class="w-4 h-4"></i> Client Dashboard
+      </a>
+    </div>
+
+    <div class="h-px bg-copper/30 my-3"></div>
+
+    <div class="control-btn" onclick="toggleMobileSubmenu('mobileAuthSub')">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="user-circle" class="w-4 h-4"></i> Account
+      </span>
+      <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </div>
+    <div id="mobileAuthSub" class="mobile-submenu">
+      <a href="login.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="log-in" class="w-4 h-4"></i> Login
+      </a>
+      <a href="register.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="user-plus" class="w-4 h-4"></i> Sign Up
+      </a>
+    </div>
+
+    <div class="control-btn" onclick="toggleDirectionMobile()">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="arrow-left-right" class="w-4 h-4"></i> RTL Mode
+      </span>
+      <span id="mobileDirText" class="text-xs font-bold bg-copper/20 px-2 py-1 rounded">LTR</span>
+    </div>
+
+    <div class="control-btn" onclick="toggleTheme()">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+        <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+        Dark Mode
+      </span>
+      <span class="text-xs bg-copper/20 px-2 py-1 rounded">🌓</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 1 — PAGE HERO
+       ============================================================ -->
+  <section class="page-hero relative min-h-[60vh] sm:min-h-[65vh] w-full flex items-center justify-center overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&h=1080&fit=crop&q=80" class="w-full h-full object-cover" alt="Modern facility management services building">
+      <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl fade-in-up text-center mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B87333]/40 backdrop-blur-sm border border-[#B87333]/60 text-white mb-6">
+          <i data-lucide="wrench" class="w-4 h-4"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Our Services</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight drop-shadow-lg">
+          Complete Facilities.<br>
+          <span class="text-[#B87333]">One Provider.</span>
+        </h1>
+
+        <p class="text-white/95 text-base md:text-lg max-w-2xl mx-auto mt-6 drop-shadow">
+          Hard FM, soft FM, security, and energy — delivered by one accountable team with a single dashboard, transparent SLAs, and no gaps between vendors.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <a href="#services-grid" class="px-6 py-3 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all inline-flex items-center gap-2">
+            Explore Services <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+          <a href="contact.html" class="px-6 py-3 border-2 border-white/70 text-white rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm">
+            Request a Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — SERVICE CATEGORIES OVERVIEW (4 cards)
+       ============================================================ -->
+  <section id="services-grid" class="py-24 section-soft">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-16">
+        <i data-lucide="layout-grid" class="w-12 h-12 text-[#B87333] mx-auto mb-4"></i>
+        <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">Four Core Service Pillars</h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">Every service is delivered to the same standard — or better.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl card-hover border-t-4 border-[#B87333]">
+          <div class="service-icon mb-5">
+            <i data-lucide="settings" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">Hard FM</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">M&amp;E maintenance, HVAC, electrical, plumbing, PPM, and statutory inspections that keep assets running.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#B87333]">View Services →</span>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl card-hover border-t-4 border-[#B87333]">
+          <div class="service-icon mb-5">
+            <i data-lucide="sparkles" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">Soft FM</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Commercial cleaning, hygiene, waste management, and front-of-house services that shape tenant experience.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#B87333]">View Services →</span>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl card-hover border-t-4 border-[#B87333]">
+          <div class="service-icon mb-5">
+            <i data-lucide="shield" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">Security</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Manned guarding, CCTV monitoring, access control, and concierge support tailored to your site risk profile.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#B87333]">View Services →</span>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl card-hover border-t-4 border-[#B87333]">
+          <div class="service-icon mb-5">
+            <i data-lucide="zap" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">Energy &amp; ESG</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Energy audits, BMS optimization, renewables, and ESG reporting that turn sustainability into measurable savings.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#B87333]">View Services →</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — DETAILED SERVICE LIST (6 services)
+       ============================================================ -->
+  <section class="py-24" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-16">
+        <i data-lucide="list-checks" class="w-12 h-12 text-[#B87333] mx-auto mb-4"></i>
+        <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">What We Deliver</h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">Detailed scopes across the full FM spectrum</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-stretch">
+
+        <!-- Service 1 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 card-hover border-l-4 border-[#B87333]">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="service-icon"><i data-lucide="thermometer" class="w-7 h-7 text-[#B87333]"></i></div>
+            <div>
+              <h3 class="text-xl font-bold" style="color: var(--text-primary);">HVAC &amp; Mechanical</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#B87333] mt-1">Hard FM</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Planned and reactive maintenance for chillers, AHUs, boilers, and ventilation systems, with F-Gas compliance and 24/7 emergency cover.</p>
+          <ul class="space-y-2">
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Planned preventative maintenance (PPM)</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> F-Gas &amp; TM44 compliance</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> BMS monitoring &amp; optimization</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 card-hover border-l-4 border-[#B87333]">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="service-icon"><i data-lucide="plug-zap" class="w-7 h-7 text-[#B87333]"></i></div>
+            <div>
+              <h3 class="text-xl font-bold" style="color: var(--text-primary);">Electrical &amp; Compliance</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#B87333] mt-1">Hard FM</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Fixed wire testing, emergency lighting, PAT testing, and LV switching — all documented in your live compliance dashboard.</p>
+          <ul class="space-y-2">
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Fixed wire testing (EICR)</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Emergency lighting &amp; fire alarms</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> PAT testing &amp; remedial works</li>
+          </ul>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 card-hover border-l-4 border-[#B87333]">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="service-icon"><i data-lucide="spray-can" class="w-7 h-7 text-[#B87333]"></i></div>
+            <div>
+              <h3 class="text-xl font-bold" style="color: var(--text-primary);">Commercial Cleaning</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#B87333] mt-1">Soft FM</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Daily office cleaning, deep-clean programmes, periodic carpet care, and washroom hygiene — with digital audit trails.</p>
+          <ul class="space-y-2">
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Daily &amp; periodic cleaning</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Hygiene &amp; washroom services</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Digital QA audits &amp; reports</li>
+          </ul>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 card-hover border-l-4 border-[#B87333]">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="service-icon"><i data-lucide="shield-check" class="w-7 h-7 text-[#B87333]"></i></div>
+            <div>
+              <h3 class="text-xl font-bold" style="color: var(--text-primary);">Security &amp; Access</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#B87333] mt-1">Specialist</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">SIA-licensed guarding, CCTV monitoring, intruder alarms, and access control — integrated with your building systems.</p>
+          <ul class="space-y-2">
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Manned guarding &amp; concierge</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> CCTV &amp; access control</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Key holding &amp; alarm response</li>
+          </ul>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 card-hover border-l-4 border-[#B87333]">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="service-icon"><i data-lucide="leaf" class="w-7 h-7 text-[#B87333]"></i></div>
+            <div>
+              <h3 class="text-xl font-bold" style="color: var(--text-primary);">Energy Management</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#B87333] mt-1">Sustainability</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Energy audits, sub-metering, BMS tuning, and renewable feasibility studies — with monthly ESG reporting for stakeholders.</p>
+          <ul class="space-y-2">
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Energy audits &amp; benchmarking</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> BMS optimization &amp; sub-metering</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> ESG reporting &amp; net-zero roadmap</li>
+          </ul>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 card-hover border-l-4 border-[#B87333]">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="service-icon"><i data-lucide="recycle" class="w-7 h-7 text-[#B87333]"></i></div>
+            <div>
+              <h3 class="text-xl font-bold" style="color: var(--text-primary);">Waste &amp; Grounds</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#B87333] mt-1">Soft FM</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Waste management, recycling programmes, grounds maintenance, and winter gritting — keeping exteriors safe and presentable.</p>
+          <ul class="space-y-2">
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Waste &amp; recycling services</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Grounds &amp; landscaping</li>
+            <li class="check-item"><i data-lucide="check-circle" class="w-4 h-4 text-[#B87333]"></i> Winter gritting &amp; snow clearance</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — HOW WE DELIVER (4-step process)
+       ============================================================ -->
+  <section class="py-24 section-warm">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-16">
+        <i data-lucide="route" class="w-12 h-12 text-[#B87333] mx-auto mb-4"></i>
+        <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">How We Deliver</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">A disciplined four-step process from first call to steady-state operations.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="process-step text-center">
+          <div class="w-16 h-16 rounded-2xl bg-[#B87333] flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <i data-lucide="search" class="w-8 h-8 text-white"></i>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Step 01</span>
+          <h3 class="text-lg font-bold mt-2 mb-2" style="color: var(--text-primary);">Assess</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Free site walkthrough, asset review, and requirements gathering. We map what you have and what's missing.</p>
+        </div>
+
+        <div class="process-step text-center">
+          <div class="w-16 h-16 rounded-2xl bg-[#B87333] flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <i data-lucide="file-text" class="w-8 h-8 text-white"></i>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Step 02</span>
+          <h3 class="text-lg font-bold mt-2 mb-2" style="color: var(--text-primary);">Propose</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Transparent scope, SLA schedule, and fixed pricing — no hidden fees, no vague line items.</p>
+        </div>
+
+        <div class="process-step text-center">
+          <div class="w-16 h-16 rounded-2xl bg-[#B87333] flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <i data-lucide="rocket" class="w-8 h-8 text-white"></i>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Step 03</span>
+          <h3 class="text-lg font-bold mt-2 mb-2" style="color: var(--text-primary);">Mobilize</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">TUPE, inductions, asset tagging, and dashboard setup — typically live within 10–15 working days.</p>
+        </div>
+
+        <div class="process-step text-center">
+          <div class="w-16 h-16 rounded-2xl bg-[#B87333] flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <i data-lucide="trending-up" class="w-8 h-8 text-white"></i>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Step 04</span>
+          <h3 class="text-lg font-bold mt-2 mb-2" style="color: var(--text-primary);">Improve</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Monthly SLA reviews, audit actions, and continuous improvement — visible in your client dashboard.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — SERVICE PACKAGES (3 tiers)
+       ============================================================ -->
+  <section class="py-24" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-16">
+        <i data-lucide="package" class="w-12 h-12 text-[#B87333] mx-auto mb-4"></i>
+        <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">Service Packages</h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">Flexible contract structures to fit different site sizes and budgets.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 items-stretch max-w-5xl mx-auto">
+
+        <!-- Essential -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 package-card flex flex-col">
+          <div class="service-icon mb-4">
+            <i data-lucide="home" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-1" style="color: var(--text-primary);">Essential</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Single-service contracts for smaller sites.</p>
+          <div class="mb-6">
+            <span class="text-3xl font-black text-[#B87333]">From $1,200</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">/month</span>
+          </div>
+          <ul class="space-y-2 flex-grow mb-6">
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> One core service (cleaning OR M&amp;E)</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Monthly performance report</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Business-hours support</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Compliance register access</li>
+          </ul>
+          <a href="contact.html" class="block text-center py-3 border-2 border-[#B87333] text-[#B87333] rounded-xl font-bold hover:bg-[#B87333] hover:text-white transition">
+            Get Quote
+          </a>
+        </div>
+
+        <!-- Professional (Popular) -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 package-card popular flex flex-col">
+          <span class="package-badge">Most Popular</span>
+          <div class="service-icon mb-4">
+            <i data-lucide="building" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-1" style="color: var(--text-primary);">Professional</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Integrated FM for mid-size portfolios.</p>
+          <div class="mb-6">
+            <span class="text-3xl font-black text-[#B87333]">From $4,500</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">/month</span>
+          </div>
+          <ul class="space-y-2 flex-grow mb-6">
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Hard FM + soft FM bundle</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Client dashboard access</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Quarterly SLA reviews</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> 24/7 emergency line</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Named account manager</li>
+          </ul>
+          <a href="contact.html" class="block text-center py-3 bg-[#B87333] text-white rounded-xl font-bold hover:bg-[#9A5F2A] transition">
+            Request Proposal
+          </a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 package-card flex flex-col">
+          <div class="service-icon mb-4">
+            <i data-lucide="building-2" class="w-7 h-7 text-[#B87333]"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-1" style="color: var(--text-primary);">Enterprise</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Full-scope FM for multi-site estates.</p>
+          <div class="mb-6">
+            <span class="text-3xl font-black text-[#B87333]">Custom</span>
+          </div>
+          <ul class="space-y-2 flex-grow mb-6">
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> All services under one contract</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Admin + client dashboards</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Dedicated site-based team</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Energy &amp; ESG programme</li>
+            <li class="check-item"><i data-lucide="check" class="w-4 h-4 text-[#B87333]"></i> Strategic account director</li>
+          </ul>
+          <a href="contact.html" class="block text-center py-3 border-2 border-[#B87333] text-[#B87333] rounded-xl font-bold hover:bg-[#B87333] hover:text-white transition">
+            Talk to Sales
+          </a>
+        </div>
+
+      </div>
+
+      <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-8">
+        All packages include ISO-certified processes, fully vetted staff, and transparent reporting. Prices are indicative and depend on site scope.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — SERVICE CTA BANNER
+       ============================================================ -->
+  <section class="py-24 section-dark relative overflow-hidden">
+    <div class="container mx-auto px-4 max-w-[1300px] relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Get Started</span>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-5">
+            Not Sure Which<br>
+            <span class="text-[#B87333]">Service You Need?</span>
+          </h2>
+          <p class="text-white/75 text-lg leading-relaxed mb-8">
+            Our team can scope your requirements in a 20-minute call. Whether you need a single cleaning contract or a fully integrated FM solution, we'll tell you honestly what's right for your site — no pressure.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="contact.html" class="px-8 py-4 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all inline-flex items-center gap-2">
+              Book a Scoping Call <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <a href="faq.html" class="px-8 py-4 border-2 border-white/70 text-white rounded-xl font-bold hover:bg-white/20 transition-all inline-flex items-center gap-2">
+              <i data-lucide="help-circle" class="w-5 h-5"></i> Read FAQs
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 sm:p-10 border border-[#B87333]/40">
+          <h3 class="text-2xl font-bold text-white mb-6">Why Clients Choose Us</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <i data-lucide="badge-check" class="w-5 h-5 text-[#B87333] flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-semibold text-sm">ISO 41001, 45001 &amp; 14001 certified</p>
+                <p class="text-white/60 text-xs mt-0.5">Independently audited processes.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="monitor" class="w-5 h-5 text-[#B87333] flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-semibold text-sm">Live client dashboard</p>
+                <p class="text-white/60 text-xs mt-0.5">SLA, PPM, and compliance in real time.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="timer" class="w-5 h-5 text-[#B87333] flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-semibold text-sm">&lt; 2 hour emergency response</p>
+                <p class="text-white/60 text-xs mt-0.5">24/7 cover on all live contracts.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="users" class="w-5 h-5 text-[#B87333] flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-semibold text-sm">One accountable team</p>
+                <p class="text-white/60 text-xs mt-0.5">No vendor juggling. One contract, one lead.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="pt-16 pb-8">
+    <div class="container mx-auto px-4 md:px-8 max-w-[1300px]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="space-y-6">
+          <a href="index.html" class="logo-brand flex items-center gap-2">
+            <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+            <span class="text-2xl sm:text-3xl font-black tracking-tight">
+              <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+            </span>
+          </a>
+          <p class="text-sm leading-relaxed">Integrated facilities management for commercial, healthcare, and industrial portfolios. Hard FM, soft FM, and specialist services delivered with precision.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Home</a></li>
+            <li><a href="about.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">About Us</a></li>
+            <li><a href="services.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Services</a></li>
+            <li><a href="gallery.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Gallery</a></li>
+            <li><a href="contact.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Resources</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">FM Insights</a></li>
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">Service Catalogue</a></li>
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">Compliance Guide</a></li>
+            <li><a href="blog.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Contact</h4>
+          <ul class="space-y-4">
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="phone" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">+1 (800) 642-8733</span></li>
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="mail" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">hello@facilitas.com</span></li>
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="map-pin" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">1200 Business Park, Suite 500, Chicago, IL</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs font-medium">© 2026 Facilitas — Professional Facilities Management. All Rights Reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Privacy Policy</a>
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Terms of Service</a>
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    /* ===== NAV / THEME / RTL / MOBILE ===== */
+    function toggleDropdown(menuId, e) {
+      if (e) e.stopPropagation();
+      document.querySelectorAll('.dropdown-content').forEach(d => {
+        if (d.id !== menuId) d.classList.remove('show');
+      });
+      const m = document.getElementById(menuId);
+      if (m) m.classList.toggle('show');
+    }
+
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show'));
+    });
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      mobileMenu.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open', mobileMenu.classList.contains('open'));
+    }
+
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      mobileMenu.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    }
+
+    function toggleMobileSubmenu(id) {
+      const sub = document.getElementById(id);
+      if (!sub) return;
+      const parentBtn = sub.previousElementSibling;
+      const icon = parentBtn?.querySelector('i[data-lucide="chevron-down"]');
+      sub.classList.toggle('open');
+      if (icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    function toggleDirection() {
+      const html = document.documentElement;
+      const dirTextDesktop = document.getElementById('dirTextDesktop');
+      const mobileDirText = document.getElementById('mobileDirText');
+      if (html.dir === 'rtl') {
+        html.dir = 'ltr';
+        if (dirTextDesktop) dirTextDesktop.innerText = 'LTR';
+        if (mobileDirText) mobileDirText.innerText = 'LTR';
+      } else {
+        html.dir = 'rtl';
+        if (dirTextDesktop) dirTextDesktop.innerText = 'RTL';
+        if (mobileDirText) mobileDirText.innerText = 'RTL';
+      }
+      setTimeout(() => { lucide.createIcons(); }, 50);
+    }
+
+    function toggleDirectionMobile() { toggleDirection(); }
+
+    /* ===== INIT ===== */
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+
+      const currentPage = window.location.pathname.split("/").pop();
+      document.querySelectorAll(".nav-link").forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active-page");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

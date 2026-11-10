@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Client Dashboard – Facilitas Professional Facilities Management." />
+  <title>Client Dashboard | Facilitas</title>
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=64&h=64&fit=crop" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+    :root {
+      --black: #000000;
+      --white: #FFFFFF;
+      --accent: #B87333;
+      --copper: #B87333;
+      --copper-light: #D4A373;
+      --copper-dark: #8B5A2B;
+      --bg-primary: #FAF7F2;
+      --bg-secondary: #F5F0E8;
+      --text-main: #000000;
+      --text-heading: #000000;
+      --card-bg: #FFFFFF;
+      --border-light: #E5E7EB;
+      --sidebar-bg: #FFFFFF;
+      --sidebar-text: #4B5563;
+      --topbar-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --input-bg: #FAF7F2;
+      --hover-bg: rgba(184, 115, 51, 0.08);
+    }
+
+    [data-theme="dark"], .dark {
+      --bg-primary: #0A0A0A;
+      --bg-secondary: #141414;
+      --text-main: #EAEAEA;
+      --text-heading: #FAFAFA;
+      --card-bg: #141414;
+      --border-light: #2A2A2A;
+      --sidebar-bg: #050505;
+      --sidebar-text: #9CA3AF;
+      --topbar-bg: rgba(10, 10, 10, 0.95);
+      --input-bg: #111111;
+      --hover-bg: rgba(184, 115, 51, 0.15);
+    }
+
+    /* Lock viewport for app-shell */
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-main);
+      transition: background-color .3s ease, color .3s ease;
+      line-height: 1.5;
+    }
+
+    .app-shell { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 270px;
+      flex-shrink: 0;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      display: flex;
+      flex-direction: column;
+      transition: transform .3s ease;
+      z-index: 50;
+      border-right: 1px solid var(--border-light);
+    }
+    [dir="rtl"] .sidebar { border-right: none; border-left: 1px solid var(--border-light); }
+
+    .sidebar-header {
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Logo matched exactly to index.html font size and branding */
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .logo-icon, .logo-text { color: #B87333 !important; }
+
+    .sidebar-close {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-heading);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem .8rem;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+    }
+    .sidebar-nav::-webkit-scrollbar { width: 4px; }
+    .sidebar-nav::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+    .nav-section-label {
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #9CA3AF;
+      padding: .85rem .8rem .35rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .7rem .9rem;
+      border-radius: .7rem;
+      color: var(--sidebar-text);
+      font-size: .88rem;
+      font-weight: 600;
+      transition: all .2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-item i { width: 1.2rem; text-align: center; font-size: .95rem; }
+    .nav-item:hover { background: var(--hover-bg); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 700; }
+    .nav-item.active i { color: #fff; }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--accent);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 800;
+      padding: .15rem .5rem;
+      border-radius: 20px;
+    }
+    .nav-item.active .nav-badge { background: rgba(0,0,0,0.25); }
+    [dir="rtl"] .nav-badge { margin-left: 0; margin-right: auto; }
+
+    .sidebar-footer { padding: 1rem; border-top: 1px solid var(--border-light); }
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .6rem;
+      border-radius: .7rem;
+      transition: .2s;
+      cursor: pointer;
+    }
+    .sidebar-user:hover { background: var(--hover-bg); }
+    .sidebar-avatar {
+      width: 2.3rem;
+      height: 2.3rem;
+      border-radius: 50%;
+      background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop');
+      background-size: cover;
+      border: 2px solid var(--accent);
+      flex-shrink: 0;
+    }
+    .sidebar-user-info { flex: 1; min-width: 0; }
+    .sidebar-user-name { font-size: .85rem; font-weight: 700; color: var(--text-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidebar-user-role { font-size: .7rem; color: var(--accent); font-weight: 600; }
+    .sidebar-logout {
+      background: none;
+      border: none;
+      color: var(--sidebar-text);
+      cursor: pointer;
+      font-size: .9rem;
+      padding: .3rem;
+      transition: .2s;
+    }
+    .sidebar-logout:hover { color: #EF4444; }
+
+    /* ===== MAIN AREA ===== */
+    .main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+
+    /* Topbar */
+    .topbar {
+      background: var(--topbar-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-light);
+      padding: .8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+    .menu-toggle {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: .6rem;
+      cursor: pointer;
+      font-size: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-wrap { position: relative; flex: 1; max-width: 440px; }
+    .search-wrap i { position: absolute; left: .9rem; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: .85rem; pointer-events: none; }
+    [dir="rtl"] .search-wrap i { left: auto; right: .9rem; }
+    .search-wrap input {
+      width: 100%;
+      padding: .65rem .9rem .65rem 2.4rem;
+      border-radius: .7rem;
+      border: 1.5px solid var(--border-light);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: .88rem;
+      outline: none;
+      transition: .2s;
+    }
+    [dir="rtl"] .search-wrap input { padding: .65rem 2.4rem .65rem .9rem; }
+    .search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.15); }
+
+    .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .55rem; }
+    [dir="rtl"] .topbar-actions { margin-left: 0; margin-right: auto; }
+    .topbar-btn {
+      width: 2.4rem;
+      height: 2.4rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: .2s;
+      font-size: .9rem;
+      position: relative;
+    }
+    .topbar-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .notif-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #EF4444;
+      border-radius: 50%;
+      border: 2px solid var(--card-bg);
+    }
+
+    .topbar-profile {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .3rem .8rem .3rem .3rem;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: .2s;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+    }
+    .topbar-profile:hover { border-color: var(--accent); }
+    .topbar-avatar {
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop');
+      background-size: cover;
+      border: 2px solid var(--accent);
+    }
+    .topbar-profile-name { font-size: .82rem; font-weight: 600; white-space: nowrap; }
+    @media (max-width: 640px) { .topbar-profile-name { display: none; } }
+
+    /* Content scroll area */
+    .content { flex: 1; overflow-y: auto; padding: 1.5rem; scroll-behavior: smooth; }
+    .content::-webkit-scrollbar { width: 6px; }
+    .content::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 6px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+
+    /* Page heading */
+    .page-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .page-heading h1 { font-size: 1.6rem; font-weight: 800; }
+    .page-heading h1 span { color: var(--accent); }
+    .page-heading p { font-size: .88rem; opacity: .7; margin-top: .2rem; }
+    .page-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: .65rem 1.4rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: .85rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      transition: .2s;
+      box-shadow: 0 8px 16px -6px rgba(184, 115, 51, 0.4);
+    }
+    .btn-primary:hover { background: #9A5F2A; color: #fff; transform: translateY(-2px); }
+    .btn-outline {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-light);
+      color: var(--text-main);
+      padding: .65rem 1.4rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: .85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      transition: .2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ===== STAT CARDS ===== */
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-light);
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      transition: .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 24px rgba(184,115,51,0.12); }
+    .stat-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .8rem; }
+    .stat-icon { width: 2.4rem; height: 2.4rem; border-radius: .7rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .stat-icon.copper { background: rgba(184, 115, 51, 0.15); color: var(--accent); }
+    .stat-icon.blue { background: rgba(59, 130, 246, 0.12); color: #3B82F6; }
+    .stat-icon.orange { background: rgba(249, 115, 22, 0.12); color: #F97316; }
+    .stat-icon.green { background: rgba(34, 197, 94, 0.12); color: #22C55E; }
+    .stat-trend { font-size: .72rem; font-weight: 700; display: flex; align-items: center; gap: .2rem; padding: .2rem .5rem; border-radius: 20px; }
+    .stat-trend.up { background: rgba(34,197,94,0.12); color: #22C55E; }
+    .stat-value { font-size: 1.7rem; font-weight: 900; color: var(--text-heading); line-height: 1; margin-bottom: .2rem; }
+    .stat-label { font-size: .78rem; opacity: .7; font-weight: 500; }
+
+    /* ===== DASHBOARD GRID ===== */
+    .dashboard-grid { display: grid; gap: 1.2rem; grid-template-columns: 1fr; margin-bottom: 1.5rem; }
+    @media (min-width: 1024px) { .dashboard-grid { grid-template-columns: 2fr 1fr; } }
+    .panel { background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 1.2rem; overflow: hidden; }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.3rem;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .panel-header h2 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: .5rem; }
+    .panel-header h2 i { color: var(--accent); }
+    .panel-link { font-size: .8rem; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: .3rem; transition: .2s; cursor: pointer; }
+    .panel-link:hover { gap: .6rem; }
+    .panel-body { padding: 1.3rem; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    thead th {
+      text-align: left;
+      padding: .7rem .8rem;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-main);
+      opacity: .6;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-light);
+      white-space: nowrap;
+    }
+    [dir="rtl"] thead th { text-align: right; }
+    tbody td { padding: .85rem .8rem; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background .2s; }
+    tbody tr:hover { background: var(--hover-bg); }
+    .status-badge { display: inline-flex; align-items: center; gap: .3rem; padding: .25rem .7rem; border-radius: 20px; font-size: .72rem; font-weight: 700; }
+    .status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .status-badge.completed { background: rgba(34,197,94,0.12); color: #22C55E; }
+    .status-badge.pending { background: rgba(249,115,22,0.12); color: #F97316; }
+    .status-badge.in-progress { background: rgba(59,130,246,0.12); color: #3B82F6; }
+
+    /* Quick actions */
+    .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+    .quick-action {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .5rem; padding: 1rem .5rem; border-radius: .9rem; border: 1.5px solid var(--border-light);
+      background: var(--card-bg); color: var(--text-main); cursor: pointer; transition: .2s;
+      font-size: .78rem; font-weight: 700; text-align: center;
+    }
+    .quick-action i { font-size: 1.2rem; color: var(--accent); transition: .2s; }
+    .quick-action:hover { border-color: var(--accent); background: var(--hover-bg); transform: translateY(-2px); }
+
+    /* Chart */
+    .chart-container { display: flex; align-items: flex-end; justify-content: space-between; gap: .5rem; height: 160px; padding-top: 1rem; }
+    .chart-bar-group { display: flex; flex-direction: column; align-items: center; gap: .5rem; flex: 1; height: 100%; justify-content: flex-end; }
+    .chart-bar { width: 100%; max-width: 2rem; background: var(--accent); border-radius: 6px 6px 0 0; transition: height .8s ease; position: relative; }
+    .chart-bar:hover { background: #9A5F2A; }
+    .chart-label { font-size: .7rem; opacity: .7; font-weight: 600; }
+
+    /* Responsive Sidebar */
+    @media (max-width: 1023px) {
+      .sidebar { position: fixed; top: 0; left: 0; height: 100vh; transform: translateX(-100%); box-shadow: 0 0 40px rgba(0,0,0,0.4); }
+      [dir="rtl"] .sidebar { left: auto; right: 0; transform: translateX(100%); }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-close { display: block; }
+      .menu-toggle { display: flex; }
+      .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40; }
+      .sidebar-overlay.show { display: block; }
+    }
+
+    /* Dynamic Views */
+    .view-section { display: none; animation: fadeUp 0.35s ease both; }
+    .view-section.active { display: block; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar overlay for mobile -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="app-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <!-- EXACT SAME LOGO FONT SIZE AND MARKUP AS index.html -->
+      <a href="index.html" class="logo-brand flex items-center gap-2 shrink-0">
+        <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+        <span class="text-2xl sm:text-3xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar"><i class="fas fa-times"></i></button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">My Account</div>
+      <div class="nav-item active" data-target="view-dashboard">
+        <i class="fas fa-th-large"></i> Overview
+      </div>
+      <div class="nav-item" data-target="view-bookings">
+        <i class="fas fa-calendar-check"></i> My Service Requests
+        <span class="nav-badge">3</span>
+      </div>
+      <div class="nav-item" data-target="view-payments">
+        <i class="fas fa-credit-card"></i> Billing & Invoices
+      </div>
+
+      <div class="nav-section-label">Support</div>
+      <div class="nav-item" data-target="view-support">
+        <i class="fas fa-headset"></i> Help & Support
+      </div>
+      <div class="nav-item" data-target="view-profile">
+        <i class="fas fa-user-cog"></i> My Profile
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar"></div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">Sarah Miller</div>
+          <div class="sidebar-user-role">Corporate Tenant Client</div>
+        </div>
+        <button class="sidebar-logout" aria-label="Logout" onclick="window.location.href='login.html'">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="main-area">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open sidebar menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search my service tickets, invoices..." aria-label="Search" />
+      </div>
+
+      <div class="topbar-actions">
+        <button class="topbar-btn" id="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-circle-half-stroke" id="theme-icon"></i>
+        </button>
+        <button class="topbar-btn" id="rtl-toggle" aria-label="Toggle direction">
+          <i class="fas fa-right-left"></i>
+        </button>
+        <button class="topbar-btn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="topbar-profile" onclick="window.location.href='index.html'">
+          <div class="topbar-avatar"></div>
+          <span class="topbar-profile-name">Sarah Miller</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrollable Content -->
+    <main class="content" id="main-content">
+
+      <!-- ===== VIEW 1: DASHBOARD (OVERVIEW) ===== -->
+      <div id="view-dashboard" class="view-section active">
+        <div class="page-heading">
+          <div>
+            <h1>Client <span>Portal</span></h1>
+            <p>Welcome back, Sarah. Track facility operations, request work, and review service reports.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn-outline" onclick="alert('Downloading quarterly facility performance summary...')"><i class="fas fa-download"></i> SLA Report</button>
+            <button class="btn-primary" data-target="view-bookings"><i class="fas fa-plus"></i> Request Service</button>
+          </div>
+        </div>
+
+        <!-- 4 Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-head">
+              <div class="stat-icon copper"><i class="fas fa-building"></i></div>
+              <span class="stat-trend up"><i class="fas fa-check"></i> Active</span>
+            </div>
+            <div class="stat-value">4</div>
+            <div class="stat-label">Assigned Facilities</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-head">
+              <div class="stat-icon orange"><i class="fas fa-clock"></i></div>
+              <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 3 Open</span>
+            </div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Active Work Requests</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-head">
+              <div class="stat-icon green"><i class="fas fa-shield-heart"></i></div>
+              <span class="stat-trend up"><i class="fas fa-check"></i> 99.8%</span>
+            </div>
+            <div class="stat-value">99.8%</div>
+            <div class="stat-label">SLA Compliance</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-head">
+              <div class="stat-icon blue"><i class="fas fa-file-invoice"></i></div>
+              <span class="stat-trend up"><i class="fas fa-check"></i> Paid</span>
+            </div>
+            <div class="stat-value">$18.5k</div>
+            <div class="stat-label">Current Statement</div>
+          </div>
+        </div>
+
+        <!-- Grid: Table + Side Panel -->
+        <div class="dashboard-grid">
+          <!-- Left: My Service Requests -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2><i class="fas fa-clipboard-list"></i> My Recent Requests</h2>
+              <span class="panel-link" data-target="view-bookings">View All (3) <i class="fas fa-arrow-right"></i></span>
+            </div>
+            <div class="panel-body p-0">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Request ID</th>
+                      <th>Facility</th>
+                      <th>Service Details</th>
+                      <th>Assigned Lead</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>#REQ-3104</strong></td>
+                      <td>Nexus Tower Alpha (Suite 1400)</td>
+                      <td>HVAC zone cooling adjustment</td>
+                      <td>Marcus Brody (HVAC)</td>
+                      <td><span class="status-badge in-progress">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>#REQ-3098</strong></td>
+                      <td>Apex Global HQ</td>
+                      <td>Access card reader re-programming</td>
+                      <td>Elena Rostova (Electrical)</td>
+                      <td><span class="status-badge pending">Scheduled</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>#REQ-3085</strong></td>
+                      <td>Nexus Tower Alpha (Suite 1400)</td>
+                      <td>Carpet deep steam sanitization</td>
+                      <td>Soft FM Team A</td>
+                      <td><span class="status-badge completed">Completed</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Quick Actions + Updates -->
+          <div class="space-y-4">
+            <!-- Quick Actions -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2><i class="fas fa-bolt"></i> Quick Request</h2>
+              </div>
+              <div class="panel-body">
+                <div class="quick-grid">
+                  <div class="quick-action" data-target="view-bookings">
+                    <i class="fas fa-temperature-arrow-up"></i>
+                    <span>HVAC Adjust</span>
+                  </div>
+                  <div class="quick-action" data-target="view-bookings">
+                    <i class="fas fa-key"></i>
+                    <span>Access Pass</span>
+                  </div>
+                  <div class="quick-action" data-target="view-bookings">
+                    <i class="fas fa-broom"></i>
+                    <span>Deep Clean</span>
+                  </div>
+                  <div class="quick-action" data-target="view-support">
+                    <i class="fas fa-phone-volume"></i>
+                    <span>Call FM Mgr</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Consumption Trend -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2><i class="fas fa-chart-line"></i> Service Hours Utilized</h2>
+                <span class="text-xs font-bold text-[#B87333]">Contract On Track</span>
+              </div>
+              <div class="panel-body">
+                <div class="chart-container">
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="height: 55%;"></div>
+                    <span class="chart-label">Jun</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="height: 70%;"></div>
+                    <span class="chart-label">Jul</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="height: 60%;"></div>
+                    <span class="chart-label">Aug</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="height: 78%;"></div>
+                    <span class="chart-label">Sep</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="height: 82%;"></div>
+                    <span class="chart-label">Oct</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="height: 88%;"></div>
+                    <span class="chart-label">Nov</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== VIEW 2: MY SERVICE REQUESTS ===== -->
+      <div id="view-bookings" class="view-section">
+        <div class="page-heading">
+          <div>
+            <h1>My Service <span>Requests</span></h1>
+            <p>Track live status, technician assignment, and SLA resolution times.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn-primary" onclick="alert('Opening service request submission dialog...')"><i class="fas fa-plus"></i> Submit Request</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <h2><i class="fas fa-list-check"></i> Active & Past Tickets</h2>
+          </div>
+          <div class="panel-body p-0">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Request ID</th>
+                    <th>Facility Location</th>
+                    <th>Category</th>
+                    <th>Date Logged</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>#REQ-3104</strong></td>
+                    <td>Nexus Tower Alpha · Level 14</td>
+                    <td>HVAC & Air Balancing</td>
+                    <td>Today, 09:15 AM</td>
+                    <td><span class="status-badge in-progress">Technician Dispatched</span></td>
+                    <td><button class="btn-outline text-xs py-1 px-3">View Progress</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>#REQ-3098</strong></td>
+                    <td>Apex Global HQ · North Wing</td>
+                    <td>Keycard & Security Reader</td>
+                    <td>Yesterday, 03:40 PM</td>
+                    <td><span class="status-badge pending">Assigned</span></td>
+                    <td><button class="btn-outline text-xs py-1 px-3">View Progress</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>#REQ-3085</strong></td>
+                    <td>Nexus Tower Alpha · Level 14</td>
+                    <td>Deep Carpet Sanitization</td>
+                    <td>Nov 01, 2026</td>
+                    <td><span class="status-badge completed">Closed & Verified</span></td>
+                    <td><button class="btn-outline text-xs py-1 px-3">View Receipt</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== VIEW 3: BILLING & INVOICES ===== -->
+      <div id="view-payments" class="view-section">
+        <div class="page-heading">
+          <div>
+            <h1>Billing & <span>Invoices</span></h1>
+            <p>Review monthly FM service retainers, work order charges, and statement history.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <h2><i class="fas fa-receipt"></i> Monthly Statements</h2>
+          </div>
+          <div class="panel-body p-0">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Statement ID</th>
+                    <th>Facility Covered</th>
+                    <th>Period</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Receipt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>#STMT-2026-11</strong></td>
+                    <td>Nexus Alpha Suite 1400</td>
+                    <td>Nov 2026</td>
+                    <td>$6,250.00</td>
+                    <td><span class="status-badge completed">Settled</span></td>
+                    <td><button class="btn-outline text-xs py-1 px-3"><i class="fas fa-download"></i> PDF</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>#STMT-2026-10</strong></td>
+                    <td>Nexus Alpha Suite 1400</td>
+                    <td>Oct 2026</td>
+                    <td>$6,250.00</td>
+                    <td><span class="status-badge completed">Settled</span></td>
+                    <td><button class="btn-outline text-xs py-1 px-3"><i class="fas fa-download"></i> PDF</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== VIEW 4: HELP & SUPPORT ===== -->
+      <div id="view-support" class="view-section">
+        <div class="page-heading">
+          <div>
+            <h1>Help & <span>Support</span></h1>
+            <p>24/7 dedicated tenant helpdesk and priority facility manager contacts.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <h2><i class="fas fa-headset"></i> Dedicated Account Support</h2>
+          </div>
+          <div class="panel-body space-y-4">
+            <p class="text-sm text-gray-700 dark:text-gray-300">Your dedicated Facilitas Property Manager is on standby for any tenant escalations, emergency services, or planned alterations.</p>
+            <div class="p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-[#FAF7F2] dark:bg-[#1A1A1A]">
+              <div class="text-sm font-bold mb-1">Central FM Emergency Hotline:</div>
+              <div class="text-base text-[#B87333] font-black"><i class="fas fa-phone mr-2"></i> +1 (800) 642-8733 (Toll Free 24/7)</div>
+              <div class="text-xs text-gray-500 mt-2">Email: client-support@facilitas.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== VIEW 5: MY PROFILE ===== -->
+      <div id="view-profile" class="view-section">
+        <div class="page-heading">
+          <div>
+            <h1>My <span>Profile</span></h1>
+            <p>Manage tenant contact details, emergency access authorizations, and notification settings.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <h2><i class="fas fa-user-circle"></i> Tenant Details</h2>
+          </div>
+          <div class="panel-body space-y-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Full Name</label>
+                <div class="font-semibold">Sarah Miller</div>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Company / Tenant</label>
+                <div class="font-semibold">Miller Capital Partners Ltd.</div>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Assigned Property</label>
+                <div class="font-semibold">Nexus Tower Alpha, Suite 1400</div>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Direct Phone</label>
+                <div class="font-semibold">+1 (312) 555-0198</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  // Initialize Lucide icons
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+
+  /* ===== THEME TOGGLE (Sync with index.html) ===== */
+  const themeBtn = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlEl.classList.add('dark');
+      htmlEl.setAttribute('data-theme', 'dark');
+    } else {
+      htmlEl.classList.remove('dark');
+      htmlEl.setAttribute('data-theme', 'light');
+    }
+  }
+  initTheme();
+
+  themeBtn.addEventListener('click', () => {
+    const isDark = htmlEl.classList.toggle('dark');
+    htmlEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  /* ===== RTL TOGGLE ===== */
+  const rtlBtn = document.getElementById('rtl-toggle');
+  function initDir() {
+    const savedDir = localStorage.getItem('direction') || 'ltr';
+    htmlEl.setAttribute('dir', savedDir);
+  }
+  initDir();
+
+  rtlBtn.addEventListener('click', () => {
+    const newDir = htmlEl.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+    htmlEl.setAttribute('dir', newDir);
+    localStorage.setItem('direction', newDir);
+  });
+
+  /* ===== MOBILE SIDEBAR TOGGLE ===== */
+  const sidebar = document.getElementById('sidebar');
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebarClose = document.getElementById('sidebar-close');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    sidebarOverlay.classList.add('show');
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    sidebarOverlay.classList.remove('show');
+  }
+
+  menuToggle.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) closeSidebar();
+  });
+
+  /* ===== DYNAMIC TAB SWITCHING ===== */
+  const navItems = document.querySelectorAll('.nav-item[data-target]');
+  const dynamicTriggers = document.querySelectorAll('[data-target]');
+  const views = document.querySelectorAll('.view-section');
+  const contentArea = document.getElementById('main-content');
+
+  function switchView(targetId) {
+    views.forEach(v => v.classList.remove('active'));
+    const targetView = document.getElementById(targetId);
+    if (targetView) targetView.classList.add('active');
+
+    navItems.forEach(nav => {
+      if (nav.getAttribute('data-target') === targetId) nav.classList.add('active');
+      else nav.classList.remove('active');
+    });
+
+    contentArea.scrollTop = 0;
+    if (window.innerWidth < 1024) closeSidebar();
+
+    if (targetId === 'view-dashboard') {
+      document.querySelectorAll('.chart-bar').forEach(bar => {
+        const targetHeight = bar.getAttribute('data-height') || bar.style.height;
+        bar.style.height = '0';
+        setTimeout(() => { bar.style.height = targetHeight; }, 100);
+      });
+    }
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  dynamicTriggers.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = el.getAttribute('data-target');
+      if (target) switchView(target);
+    });
+  });
+
+  document.querySelectorAll('.chart-bar').forEach(bar => {
+    bar.setAttribute('data-height', bar.style.height);
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.chart-bar').forEach(bar => {
+        const targetHeight = bar.getAttribute('data-height');
+        bar.style.height = '0';
+        setTimeout(() => { bar.style.height = targetHeight; }, 100);
+      });
+    }, 200);
+  });
+</script>
+</body>
+</html>

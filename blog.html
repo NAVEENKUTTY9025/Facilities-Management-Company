@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Blog & Insights | Facilitas — Professional Facilities Management</title>
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=64&h=64&fit=crop">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== COLOR SYSTEM (Black, White, Copper) ===== */
+    :root {
+      --bg-primary: #FFFFFF;
+      --text-primary: #000000;
+      --card-bg: #FFFFFF;
+      --border-color: #E5E7EB;
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --footer-bg: #FFFFFF;
+      --footer-text: #4B5563;
+      --copper: #B87333;
+      --copper-light: #D4A373;
+      --copper-dark: #8B5A2B;
+      --black: #000000;
+      --white: #FFFFFF;
+    }
+
+    .dark {
+      --bg-primary: #0A0A0A;
+      --text-primary: #F5F5F5;
+      --card-bg: #1A1A1A;
+      --border-color: #2A2A2A;
+      --nav-bg: rgba(10, 10, 10, 0.96);
+      --footer-bg: #050505;
+      --footer-text: #9CA3AF;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* ===== BRAND & LOGO ===== */
+    .logo-icon, .logo-text { color: #B87333 !important; }
+    .logo-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 115, 51, 0.25);
+      transition: background-color 0.3s ease, border-color 0.2s;
+    }
+
+    .dark nav {
+      background-color: var(--nav-bg);
+      border-bottom-color: rgba(184, 115, 51, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .desktop-nav-links { display: none !important; }
+    .desktop-controls-wrapper { display: none !important; }
+
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(184, 115, 51, 0.15);
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .mobile-menu-btn:hover { background: rgba(184, 115, 51, 0.3); }
+
+    @media (min-width: 1280px) {
+      .desktop-nav-links { display: flex !important; }
+      .desktop-controls-wrapper { display: flex !important; }
+      .mobile-menu-btn { display: none !important; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+      .desktop-nav-links { display: none !important; }
+      .desktop-controls-wrapper { display: none !important; }
+      .mobile-menu-btn { display: flex !important; }
+    }
+
+    @media (max-width: 767px) {
+      .desktop-nav-links { display: none !important; }
+      .desktop-controls-wrapper { display: none !important; }
+      .mobile-menu-btn { display: flex !important; }
+      .nav-inner { padding: 0.75rem 1rem; }
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary) !important;
+      white-space: nowrap;
+    }
+
+    .dark .nav-link { color: #F5F5F5 !important; }
+
+    .nav-link:hover {
+      color: #B87333 !important;
+      background-color: transparent !important;
+    }
+
+    .nav-link.active-page {
+      color: #B87333 !important;
+      background-color: transparent !important;
+    }
+
+    .desktop-control-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(184, 115, 51, 0.15);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      color: var(--text-primary);
+      border: none;
+    }
+
+    .dark .desktop-control-btn {
+      color: #F5F5F5;
+      background: rgba(184, 115, 51, 0.2);
+    }
+
+    .desktop-control-btn:hover { background: rgba(184, 115, 51, 0.35); }
+
+    /* ===== TYPOGRAPHY & ACCENTS ===== */
+    h1, h2, h3, h4, .text-copper { color: #B87333 !important; }
+    .bg-copper { background-color: #B87333 !important; }
+    .bg-copper:hover { background-color: #9A5F2A !important; }
+    .border-copper { border-color: #B87333 !important; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: var(--footer-bg) !important;
+      border-top: 1px solid var(--border-color);
+      transition: background-color 0.3s ease;
+    }
+    footer .logo-icon, footer .logo-text { color: #B87333 !important; }
+    footer h4 { color: #B87333 !important; font-weight: 800; letter-spacing: 0.05em; }
+    footer p, footer li, footer span, footer .text-gray-400, footer .text-gray-500 { color: var(--footer-text) !important; }
+    footer a { color: var(--footer-text) !important; transition: color 0.2s ease; }
+    footer a:hover { color: #B87333 !important; }
+    footer .border-t { border-color: var(--border-color) !important; }
+
+    /* ===== CARDS & HOVER ===== */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
+    }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      position: relative;
+      padding-top: 7rem;
+      padding-bottom: 5.5rem;
+    }
+    .page-hero h1, .page-hero p, .page-hero .inline-flex span { color: white !important; }
+
+    /* ===== RTL SUPPORT ===== */
+    [dir="rtl"] { text-align: right; direction: rtl; }
+    [dir="rtl"] .flex-col { flex-direction: column; }
+    [dir="rtl"] .justify-start { justify-content: flex-end; }
+    [dir="rtl"] .justify-end { justify-content: flex-start; }
+    [dir="rtl"] .text-left { text-align: right; }
+    [dir="rtl"] .text-right { text-align: left; }
+    [dir="rtl"] .ml-auto { margin-left: 0; margin-right: auto; }
+    [dir="rtl"] .mr-auto { margin-right: 0; margin-left: auto; }
+    [dir="rtl"] .contact-item { flex-direction: row-reverse; }
+    [dir="rtl"] .contact-item i { margin-left: 0.75rem; margin-right: 0; }
+
+    /* ===== MOBILE MENU ===== */
+    #mobileMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: auto;
+      width: 85%;
+      max-width: 400px;
+      height: 100vh;
+      background-color: var(--card-bg);
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: 2px 0 20px rgba(0,0,0,0.3);
+    }
+    #mobileMenu.open { transform: translateX(0); }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    body.menu-open { overflow: hidden; }
+
+    .dropdown-content {
+      display: none;
+      background-color: var(--card-bg) !important;
+      border: 1px solid var(--border-color);
+    }
+    .dropdown-content.show { display: block; }
+
+    .mobile-nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-primary) !important;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    [dir="rtl"] .mobile-nav-link { text-align: right; }
+    .mobile-nav-link:hover { color: #B87333 !important; background: transparent !important; }
+    .mobile-nav-link.active-mobile { color: #B87333 !important; background: transparent !important; }
+
+    .mobile-submenu {
+      display: none;
+      flex-direction: column;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(184, 115, 51, 0.4);
+    }
+    [dir="rtl"] .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1rem;
+      border-left: none;
+      border-right: 2px solid rgba(184, 115, 51, 0.4);
+    }
+    .mobile-submenu.open { display: flex; }
+    .mobile-submenu a {
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-primary) !important;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .mobile-submenu a.active-mobile-sub { background-color: #B87333 !important; color: white !important; }
+    .mobile-submenu a:hover { background-color: #B87333 !important; color: white !important; }
+
+    .control-btn {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(184, 115, 51, 0.1);
+      border: 1px solid rgba(184, 115, 51, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+    .control-btn:hover { background: rgba(184, 115, 51, 0.2); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+
+    @keyframes blogReveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .blog-item { animation: blogReveal 0.4s ease-out; }
+
+    /* ===== SECTION BACKGROUNDS ===== */
+    .section-soft { background: linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%); }
+    .dark .section-soft { background: linear-gradient(135deg, #141414 0%, #0A0A0A 100%); }
+    .section-dark { background: linear-gradient(120deg, #0F0F0F 0%, #1A1A1A 100%); }
+    .section-warm { background: #F5F0E8; }
+    .dark .section-warm { background: #1E1A14; }
+
+    .rounded-2xl { border-radius: 1rem; }
+
+    /* ===== BLOG TYPOGRAPHY ===== */
+    .blog-title { color: var(--text-primary); transition: color 0.2s ease; }
+    .blog-card:hover .blog-title { color: #B87333; }
+
+    .blog-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(184, 115, 51, 0.1);
+      color: #B87333;
+    }
+
+    .blog-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: #6B7280;
+    }
+    .dark .blog-meta { color: #9CA3AF; }
+
+    /* Filter pills */
+    .blog-filter {
+      padding: 0.55rem 1.15rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .blog-filter:hover { border-color: #B87333; color: #B87333; }
+    .blog-filter.active {
+      background: #B87333;
+      border-color: #B87333;
+      color: #FFFFFF;
+    }
+
+    /* Featured article image overlay */
+    .featured-card {
+      position: relative;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+    }
+    .featured-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .featured-card:hover img { transform: scale(1.04); }
+
+    /* Load more button pulse */
+    @keyframes gentlePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 115, 51, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(184, 115, 51, 0); }
+    }
+    .pulse-btn { animation: gentlePulse 2.5s infinite; }
+
+    /* Newsletter input */
+    .newsletter-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.55); }
+    .newsletter-input:focus {
+      outline: none;
+      border-color: #B87333;
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.2);
+    }
+  </style>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { colors: { primary: '#B87333', copper: '#B87333', black: '#000000' } } }
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo-brand flex items-center gap-2 shrink-0">
+        <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+        <span class="text-2xl sm:text-3xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+
+      <div class="desktop-nav-links items-center gap-1 xl:gap-2">
+        <div class="relative">
+          <button onclick="toggleDropdown('homeMenu', event)" class="nav-link">
+            Home <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="homeMenu" class="dropdown-content absolute top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+            <a href="index.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">Home 1</a>
+            <a href="home2.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="blog.html" class="nav-link active-page">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <div class="relative">
+          <button onclick="toggleDropdown('dashboardMenu', event)" class="nav-link">
+            Dashboard <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="dashboardMenu" class="dropdown-content absolute top-full mt-2 w-52 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+            <a href="admin-dashboard.html" class="flex items-center gap-2 px-4 py-3 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">
+              <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Dashboard
+            </a>
+            <a href="client-dashboard.html" class="flex items-center gap-2 px-4 py-3 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">
+              <i data-lucide="users" class="w-4 h-4"></i> Client Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="desktop-controls-wrapper items-center gap-2 shrink-0">
+        <button onclick="toggleDirection()" class="desktop-control-btn">
+          <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+          <span id="dirTextDesktop">LTR</span>
+        </button>
+        <button onclick="toggleTheme()" class="desktop-control-btn">
+          <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+        </button>
+        <div class="relative">
+          <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn">
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <i data-lucide="chevron-down" class="w-3 h-3"></i>
+          </button>
+          <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
+            <a href="login.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">LOGIN</a>
+            <a href="register.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#B87333] hover:text-white transition">SIGNUP</a>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="toggleMobileMenu()" class="mobile-menu-btn p-2 sm:p-2.5 rounded-lg transition shrink-0" style="background: rgba(184, 115, 51, 0.2); color: var(--text-primary);">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE MENU PANEL ===== -->
+  <div id="mobileMenu">
+    <div class="flex justify-between items-center mb-6">
+      <a href="index.html" class="logo-brand flex items-center gap-2">
+        <i data-lucide="building-2" class="w-7 h-7 logo-icon"></i>
+        <span class="text-2xl font-black tracking-tight">
+          <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+        </span>
+      </a>
+      <button onclick="closeMobileMenu()" class="p-2 rounded-full hover:bg-copper/40" style="background: rgba(184, 115, 51, 0.2);">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link" id="mobileHomeMainBtn">
+      <span>Home</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </button>
+    <div id="mobileHomeSub" class="mobile-submenu">
+      <a href="index.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home 1</a>
+      <a href="home2.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home 2</a>
+    </div>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="services.html" class="mobile-nav-link">Services</a>
+
+    <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+    <a href="faq.html" class="mobile-nav-link">FAQ</a>
+    <a href="blog.html" class="mobile-nav-link active-mobile">Blog</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+
+    <button onclick="toggleMobileSubmenu('mobileDashboardSub')" class="mobile-nav-link">
+      <span>Dashboard</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </button>
+    <div id="mobileDashboardSub" class="mobile-submenu">
+      <a href="admin-dashboard.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Dashboard
+      </a>
+      <a href="client-dashboard.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="users" class="w-4 h-4"></i> Client Dashboard
+      </a>
+    </div>
+
+    <div class="h-px bg-copper/30 my-3"></div>
+
+    <div class="control-btn" onclick="toggleMobileSubmenu('mobileAuthSub')">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="user-circle" class="w-4 h-4"></i> Account
+      </span>
+      <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+    </div>
+    <div id="mobileAuthSub" class="mobile-submenu">
+      <a href="login.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="log-in" class="w-4 h-4"></i> Login
+      </a>
+      <a href="register.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+        <i data-lucide="user-plus" class="w-4 h-4"></i> Sign Up
+      </a>
+    </div>
+
+    <div class="control-btn" onclick="toggleDirectionMobile()">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="arrow-left-right" class="w-4 h-4"></i> RTL Mode
+      </span>
+      <span id="mobileDirText" class="text-xs font-bold bg-copper/20 px-2 py-1 rounded">LTR</span>
+    </div>
+
+    <div class="control-btn" onclick="toggleTheme()">
+      <span class="font-semibold text-sm flex items-center gap-2">
+        <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+        <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+        Dark Mode
+      </span>
+      <span class="text-xs bg-copper/20 px-2 py-1 rounded">🌓</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 1 — PAGE HERO
+       ============================================================ -->
+  <section class="page-hero relative min-h-[60vh] sm:min-h-[65vh] w-full flex items-center justify-center overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&h=1080&fit=crop&q=80" class="w-full h-full object-cover" alt="Business insights and strategy meeting">
+      <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl fade-in-up text-center mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B87333]/40 backdrop-blur-sm border border-[#B87333]/60 text-white mb-6">
+          <i data-lucide="newspaper" class="w-4 h-4"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Facilitas Insights & Blog</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight drop-shadow-lg">
+          Ideas That Keep<br>
+          <span class="text-[#B87333]">Facilities Moving.</span>
+        </h1>
+
+        <p class="text-white/95 text-base md:text-lg max-w-2xl mx-auto mt-6 drop-shadow">
+          Practical guides, industry trends, and lessons from the field — written by the people who run integrated FM every day.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <a href="#blog-grid" class="px-6 py-3 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all inline-flex items-center gap-2">
+            Read Latest <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+          <a href="#newsletter" class="px-6 py-3 border-2 border-white/70 text-white rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm inline-flex items-center gap-2">
+            <i data-lucide="mail" class="w-4 h-4"></i> Subscribe
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — FEATURED ARTICLE
+       ============================================================ -->
+  <section class="py-20 section-soft">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="flex items-center gap-3 mb-8">
+        <i data-lucide="star" class="w-5 h-5 text-[#B87333]"></i>
+        <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Featured Article</span>
+      </div>
+
+      <a href="#" class="featured-card card-hover block grid lg:grid-cols-2 gap-0">
+        <div class="h-72 lg:h-auto overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1000&h=800&fit=crop&q=80" alt="Featured article about workplace facilities" loading="lazy">
+        </div>
+        <div class="p-8 sm:p-10 flex flex-col justify-center">
+          <span class="blog-category mb-4"><i data-lucide="trending-up" class="w-3 h-3"></i> Industry Trends</span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold blog-title leading-tight mb-4">
+            The 2026 Workplace: How Hybrid Work Is Reshaping Facility Strategy
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Occupancy is no longer predictable — and neither should your FM model be. We break down the data from 120 sites and share the four operational shifts that leading property teams are making this year.
+          </p>
+          <div class="blog-meta mb-6">
+            <span class="flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5"></i> Laura Bennett</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> March 12, 2026</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 8 min read</span>
+          </div>
+          <span class="inline-flex items-center gap-2 font-bold text-[#B87333]">
+            Read Full Article <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — CATEGORY FILTER BAR
+       ============================================================ -->
+  <section class="pt-16 pb-4" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="text-center mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Browse by Topic</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3" style="color: var(--text-primary);">
+          Latest <span class="text-[#B87333]">Articles</span>
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <button class="blog-filter active" data-filter="all" onclick="filterBlog('all', this)">All</button>
+        <button class="blog-filter" data-filter="trends" onclick="filterBlog('trends', this)">Industry Trends</button>
+        <button class="blog-filter" data-filter="sustainability" onclick="filterBlog('sustainability', this)">Sustainability</button>
+        <button class="blog-filter" data-filter="maintenance" onclick="filterBlog('maintenance', this)">Maintenance</button>
+        <button class="blog-filter" data-filter="workplace" onclick="filterBlog('workplace', this)">Workplace</button>
+        <button class="blog-filter" data-filter="compliance" onclick="filterBlog('compliance', this)">Compliance</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — BLOG GRID (9 articles + load more)
+       ============================================================ -->
+  <section id="blog-grid" class="py-16" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+
+      <div id="blogContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Article 1 -->
+        <a href="#" class="blog-item card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="trends">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Hybrid workplace article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="trending-up" class="w-3 h-3"></i> Trends</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Flexible FM: Designing Services Around Occupancy Data</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">How sensor data is turning fixed cleaning and maintenance schedules into dynamic, demand-led services.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Mar 8, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 6 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="#" class="blog-item card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="sustainability">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Energy management article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="leaf" class="w-3 h-3"></i> Sustainability</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Cutting Energy Costs by 22% Without Capital Spend</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">A step-by-step look at how BMS tuning, scheduling, and behavioral change delivered rapid savings across six sites.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Mar 3, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 7 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="#" class="blog-item card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="maintenance">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="PPM maintenance article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="wrench" class="w-3 h-3"></i> Maintenance</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">PPM vs Reactive: Getting the 80/20 Balance Right</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Why the best-performing sites treat planned maintenance as an investment, not a cost line — and how to measure it.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 26, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 5 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 4 -->
+        <a href="#" class="blog-item card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="workplace">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Workplace experience article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="users" class="w-3 h-3"></i> Workplace</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">The Front Desk Is Your Best CX Metric</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Reception and concierge teams see more tenant feedback than any survey. Here's how to turn that into action.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 19, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 4 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 5 -->
+        <a href="#" class="blog-item card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="compliance">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Compliance article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="shield-check" class="w-3 h-3"></i> Compliance</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Your Statutory Compliance Calendar, Simplified</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Fire, water, asbestos, electrical, gas, lifts — a practical monthly checklist to stay audit-ready year-round.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 11, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 9 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 6 -->
+        <a href="#" class="blog-item card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="sustainability">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Solar energy article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="leaf" class="w-3 h-3"></i> Sustainability</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Onsite Solar: What FM Teams Need to Know</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">From load profiles to cleaning schedules, a practical guide for facility managers evaluating rooftop solar.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 4, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 6 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 7 (hidden initially) -->
+        <a href="#" class="blog-item hidden-blog card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="maintenance">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Industrial maintenance article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="wrench" class="w-3 h-3"></i> Maintenance</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Condition Monitoring on a Budget</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Vibration pens, thermal cameras, and simple trend logs — low-cost tools that catch failures early.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Jan 28, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 7 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 8 (hidden initially) -->
+        <a href="#" class="blog-item hidden-blog card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="workplace">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Team training article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="users" class="w-3 h-3"></i> Workplace</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Building an FM Team That Stays</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Retention is an operational metric. How structured training and clear progression cut our staff turnover by a third.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Jan 21, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 5 min</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 9 (hidden initially) -->
+        <a href="#" class="blog-item hidden-blog card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-transparent hover:border-[#B87333]/40" data-category="compliance">
+          <div class="h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Hygiene compliance article" loading="lazy">
+          </div>
+          <div class="p-6">
+            <span class="blog-category mb-3"><i data-lucide="shield-check" class="w-3 h-3"></i> Compliance</span>
+            <h3 class="text-lg font-bold blog-title leading-snug mb-2">Hygiene Audits: Turning Findings Into Fixes</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">A closed-loop approach to cleaning audits that gets actions completed instead of just documented.</p>
+            <div class="blog-meta">
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Jan 14, 2026</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 4 min</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Empty state -->
+      <div id="blogEmpty" class="hidden text-center py-20">
+        <i data-lucide="file-question" class="w-14 h-14 text-[#B87333] mx-auto mb-4"></i>
+        <h3 class="text-xl font-bold" style="color: var(--text-primary);">No articles in this category yet</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Try another topic or view all articles.</p>
+      </div>
+
+      <!-- Load More / Less -->
+      <div class="text-center mt-12">
+        <button id="loadMoreBlogBtn" onclick="loadMoreBlog()" class="pulse-btn inline-flex items-center gap-2 px-8 py-4 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i> Load More Articles
+        </button>
+        <button id="loadLessBlogBtn" onclick="loadLessBlog()" class="hidden inline-flex items-center gap-2 px-8 py-4 border-2 border-[#B87333] text-[#B87333] rounded-xl font-bold hover:bg-[#B87333] hover:text-white transition-all">
+          <i data-lucide="minus-circle" class="w-4 h-4"></i> Load Less Articles
+        </button>
+        <p id="blogCount" class="text-xs text-gray-500 dark:text-gray-400 mt-4">Showing 6 of 9 articles</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — NEWSLETTER SIGNUP
+       ============================================================ -->
+  <section id="newsletter" class="py-24 section-dark relative overflow-hidden">
+    <div class="container mx-auto px-4 max-w-[900px] relative z-10">
+      <div class="text-center mb-10">
+        <i data-lucide="mail" class="w-14 h-14 text-[#B87333] mx-auto mb-5"></i>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+          The FM Briefing
+        </h2>
+        <p class="text-white/75 text-base md:text-lg max-w-2xl mx-auto">
+          One email per month. The most useful facilities management articles, compliance updates, and energy-saving ideas — no fluff, no spam.
+        </p>
+      </div>
+
+      <form onsubmit="handleNewsletterSubmit(event)" class="max-w-xl mx-auto">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="email" required placeholder="Enter your work email" class="newsletter-input flex-grow" aria-label="Email address">
+          <button type="submit" class="px-8 py-4 bg-[#B87333] text-white rounded-xl font-bold shadow-lg hover:bg-[#9A5F2A] transition-all inline-flex items-center justify-center gap-2 whitespace-nowrap">
+            Subscribe <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-xs text-white/50 text-center mt-4">
+          By subscribing you agree to our <a href="#" class="text-[#B87333] hover:underline">Privacy Policy</a>. Unsubscribe anytime.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — POPULAR TOPICS + CTA
+       ============================================================ -->
+  <section class="py-24 section-warm">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+      <div class="grid lg:grid-cols-3 gap-10">
+
+        <div class="lg:col-span-2">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#B87333]">Explore More</span>
+          <h2 class="text-3xl md:text-4xl font-extrabold mt-3 mb-8" style="color: var(--text-primary);">Popular Topics</h2>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <a href="#" class="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-all border-l-4 border-[#B87333]">
+              <div class="w-12 h-12 rounded-xl bg-[#B87333]/10 flex items-center justify-center shrink-0">
+                <i data-lucide="leaf" class="w-6 h-6 text-[#B87333]"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm" style="color: var(--text-primary);">Net Zero & ESG</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">12 articles</p>
+              </div>
+            </a>
+            <a href="#" class="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-all border-l-4 border-[#B87333]">
+              <div class="w-12 h-12 rounded-xl bg-[#B87333]/10 flex items-center justify-center shrink-0">
+                <i data-lucide="cpu" class="w-6 h-6 text-[#B87333]"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm" style="color: var(--text-primary);">Smart Buildings</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">9 articles</p>
+              </div>
+            </a>
+            <a href="#" class="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-all border-l-4 border-[#B87333]">
+              <div class="w-12 h-12 rounded-xl bg-[#B87333]/10 flex items-center justify-center shrink-0">
+                <i data-lucide="hard-hat" class="w-6 h-6 text-[#B87333]"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm" style="color: var(--text-primary);">Health & Safety</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">15 articles</p>
+              </div>
+            </a>
+            <a href="#" class="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-all border-l-4 border-[#B87333]">
+              <div class="w-12 h-12 rounded-xl bg-[#B87333]/10 flex items-center justify-center shrink-0">
+                <i data-lucide="banknote" class="w-6 h-6 text-[#B87333]"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm" style="color: var(--text-primary);">FM Budgeting</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">8 articles</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-[#B87333] text-white rounded-2xl shadow-xl p-8 flex flex-col justify-between">
+          <div>
+            <i data-lucide="pen-tool" class="w-10 h-10 mb-5 opacity-90"></i>
+            <h3 class="text-2xl font-bold !text-white mb-3">Have a Topic Idea?</h3>
+            <p class="text-white/85 text-sm leading-relaxed mb-6">
+              We write about what our clients ask us most. If there's a facilities management challenge you'd like us to cover, let us know.
+            </p>
+          </div>
+          <a href="contact.html" class="block text-center py-3 bg-white text-[#B87333] rounded-xl font-bold hover:bg-gray-100 transition">
+            Suggest a Topic
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="pt-16 pb-8">
+    <div class="container mx-auto px-4 md:px-8 max-w-[1300px]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="space-y-6">
+          <a href="index.html" class="logo-brand flex items-center gap-2">
+            <i data-lucide="building-2" class="w-7 h-7 sm:w-8 sm:h-8 logo-icon"></i>
+            <span class="text-2xl sm:text-3xl font-black tracking-tight">
+              <span class="logo-text">Facil</span><span class="logo-text">itas</span>
+            </span>
+          </a>
+          <p class="text-sm leading-relaxed">Integrated facilities management for commercial, healthcare, and industrial portfolios. Hard FM, soft FM, and specialist services delivered with precision.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Home</a></li>
+            <li><a href="about.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">About Us</a></li>
+            <li><a href="services.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Services</a></li>
+            <li><a href="gallery.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Gallery</a></li>
+            <li><a href="contact.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Resources</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">FM Insights</a></li>
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">Service Catalogue</a></li>
+            <li><a href="#" class="text-sm font-medium transition-colors hover:text-[#B87333]">Compliance Guide</a></li>
+            <li><a href="blog.html" class="text-sm font-medium transition-colors hover:text-[#B87333]">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-black uppercase tracking-widest mb-6">Contact</h4>
+          <ul class="space-y-4">
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="phone" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">+1 (800) 642-8733</span></li>
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="mail" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">hello@facilitas.com</span></li>
+            <li class="flex gap-3 items-start contact-item"><i data-lucide="map-pin" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">1200 Business Park, Suite 500, Chicago, IL</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs font-medium">© 2026 Facilitas — Professional Facilities Management. All Rights Reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Privacy Policy</a>
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Terms of Service</a>
+          <a href="#" class="text-xs font-medium transition-colors hover:text-[#B87333]">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    /* ===== NAV / THEME / RTL / MOBILE ===== */
+    function toggleDropdown(menuId, e) {
+      if (e) e.stopPropagation();
+      document.querySelectorAll('.dropdown-content').forEach(d => {
+        if (d.id !== menuId) d.classList.remove('show');
+      });
+      const m = document.getElementById(menuId);
+      if (m) m.classList.toggle('show');
+    }
+
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show'));
+    });
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      mobileMenu.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open', mobileMenu.classList.contains('open'));
+    }
+
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      mobileMenu.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    }
+
+    function toggleMobileSubmenu(id) {
+      const sub = document.getElementById(id);
+      if (!sub) return;
+      const parentBtn = sub.previousElementSibling;
+      const icon = parentBtn?.querySelector('i[data-lucide="chevron-down"]');
+      sub.classList.toggle('open');
+      if (icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+
+    function toggleDirection() {
+      const html = document.documentElement;
+      const dirTextDesktop = document.getElementById('dirTextDesktop');
+      const mobileDirText = document.getElementById('mobileDirText');
+      if (html.dir === 'rtl') {
+        html.dir = 'ltr';
+        if (dirTextDesktop) dirTextDesktop.innerText = 'LTR';
+        if (mobileDirText) mobileDirText.innerText = 'LTR';
+      } else {
+        html.dir = 'rtl';
+        if (dirTextDesktop) dirTextDesktop.innerText = 'RTL';
+        if (mobileDirText) mobileDirText.innerText = 'RTL';
+      }
+      setTimeout(() => { lucide.createIcons(); }, 50);
+    }
+
+    function toggleDirectionMobile() { toggleDirection(); }
+
+    /* ===== BLOG LOAD MORE / LESS + FILTER ===== */
+    const INITIAL_VISIBLE_BLOG = 6;
+    let showAllBlog = false;
+
+    function updateBlogVisibility() {
+      const allItems = Array.from(document.querySelectorAll('#blogContainer .blog-item'));
+      const activeFilter = document.body.dataset.blogFilter || 'all';
+
+      const filtered = allItems.filter(it => activeFilter === 'all' || it.dataset.category === activeFilter);
+      const visibleCount = showAllBlog ? filtered.length : Math.min(INITIAL_VISIBLE_BLOG, filtered.length);
+
+      allItems.forEach(it => {
+        const matchesFilter = activeFilter === 'all' || it.dataset.category === activeFilter;
+        if (!matchesFilter) {
+          it.style.display = 'none';
+          return;
+        }
+        const indexInFiltered = filtered.indexOf(it);
+        if (indexInFiltered < visibleCount) {
+          it.style.display = '';
+          it.style.animation = 'none';
+          void it.offsetWidth;
+          it.style.animation = 'blogReveal 0.4s ease-out';
+        } else {
+          it.style.display = 'none';
+        }
+      });
+
+      const loadMoreBtn = document.getElementById('loadMoreBlogBtn');
+      const loadLessBtn = document.getElementById('loadLessBlogBtn');
+      const counter = document.getElementById('blogCount');
+      const empty = document.getElementById('blogEmpty');
+
+      const canLoadMore = !showAllBlog && filtered.length > INITIAL_VISIBLE_BLOG;
+      const canLoadLess = showAllBlog && filtered.length > INITIAL_VISIBLE_BLOG;
+
+      loadMoreBtn.classList.toggle('hidden', !canLoadMore);
+      loadLessBtn.classList.toggle('hidden', !canLoadLess);
+
+      if (filtered.length === 0) {
+        empty.classList.remove('hidden');
+        counter.textContent = 'No articles to display';
+      } else {
+        empty.classList.add('hidden');
+        const shown = Math.min(visibleCount, filtered.length);
+        counter.textContent = `Showing ${shown} of ${filtered.length} article${filtered.length === 1 ? '' : 's'}`;
+      }
+
+      lucide.createIcons();
+    }
+
+    function loadMoreBlog() {
+      showAllBlog = true;
+      updateBlogVisibility();
+    }
+
+    function loadLessBlog() {
+      showAllBlog = false;
+      updateBlogVisibility();
+      document.getElementById('blog-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function filterBlog(category, btn) {
+      document.body.dataset.blogFilter = category;
+      showAllBlog = false;
+      document.querySelectorAll('.blog-filter').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      updateBlogVisibility();
+    }
+
+    /* ===== NEWSLETTER SUBMIT ===== */
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i> Subscribed!';
+      btn.classList.add('opacity-90');
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('opacity-90');
+        form.reset();
+        lucide.createIcons();
+      }, 3000);
+    }
+
+    /* ===== INIT ===== */
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      document.body.dataset.blogFilter = 'all';
+      updateBlogVisibility();
+
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+
+      const currentPage = window.location.pathname.split("/").pop();
+      document.querySelectorAll(".nav-link").forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active-page");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
